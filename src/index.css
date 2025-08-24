@@ -3,13 +3,73 @@
 body{
   --blue: #2F9BFF;
 
+  --blue-hover: #0073FF;
+
+  --black: #000000;
+
+  --red: #FF0000;
 
   font-size: 16px;
 }
 
 * {
-  font-family: 'sans-serif';
+  font-family: 'Anek Bangla', 'sans-serif';
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+a{
+  text-decoration: none;
+  color: var(--black);
+}
+
+
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-Thin.ttf');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-ExtraLight.ttf');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Anek Bangla';
+  src: url('./shared/fonts/AnekBangla-ExtraBold.ttf');
+  font-weight: 800;
 }

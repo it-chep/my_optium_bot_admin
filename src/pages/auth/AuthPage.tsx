@@ -1,43 +1,27 @@
-import { useLocation } from 'react-router-dom'
 import classes from './auth.module.scss'
-import { LOGIN_ROUTE } from '../../app/router/routes'
-import { MyInput } from '../../shared/ui/input';
+import { Auth } from '../../widgets/auth';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/store/store';
-import { useUserActions } from '../../entities/user';
-import { useState } from 'react';
-import { VisiblePassword } from '../../features/visiblePassword';
 
 
 export default function AuthPage(){
+    const router = useNavigate()
+    const {user} = useAppSelector(s => s.userReducer) 
 
-    const {pathname} = useLocation()
-
-    const isLogin = pathname === LOGIN_ROUTE.path;
-
-    const {user} = useAppSelector(s => s.userReducer)
-    const {setEmail} = useUserActions()
-
-    const [password, setPassword] = useState<string>('')
-
-    const onClick = () => {
-        try{
-
-        }
-        catch(e){
-            console.log(e)
-        }
-        finally{
-            
-        }
+    if(user.isAuth){
+        router('/', {
+            replace: true
+        })
     }
 
+    
     return (
+        !user.isAuth
+            ?
         <section className={classes.wrapper}>
-            <section className={classes.container}>
-                <h1 className={classes.title}>{isLogin ? 'Вход' : 'Регистрация'}</h1>
-                <MyInput placeholder='Email' value={user.email} setValue={setEmail} type="email" />
-                <VisiblePassword value={password} setValue={setPassword} />
-            </section>
+            <Auth />
         </section>
+            :
+        <></>
     )
 }

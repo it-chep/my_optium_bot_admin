@@ -41,7 +41,10 @@ export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> =
 
     return (
         <section className={classes.wrapper}>
-            <section className={classes.container + (Boolean(children) ? ` ${classes.feature}` : '')}>
+            <section 
+                ref={containerRef} 
+                className={classes.container + (Boolean(children) ? ` ${classes.feature}` : '')}
+            >
                 <input 
                     value={value} 
                     onChange={e => onChangeCurrent(e.target.value)} 

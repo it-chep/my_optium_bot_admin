@@ -1,0 +1,33 @@
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+
+    .title{
+        font-size: 40px;
+        text-align: center;
+    }
+
+    .link{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -12px;
+
+        >a{
+            color: var(--blue);
+            transition: color .25s ease;
+
+            &:hover{
+                color: var(--blue-hover);
+            }
+        }
+    }
+
+    .button{
+        margin: 8px auto 0 auto;
+        width: 200px;
+    }
+}
