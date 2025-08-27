@@ -7,6 +7,6 @@ export const UserInitialState: IUserInitialState = {
         email: '',
         isAuth: false
     },
-    isLoading: true,
+    isLoading: false,
     error: ''
 } 
