@@ -7,9 +7,12 @@ import unlockImg from '../lib/unlock.png'
 interface IProps {
     value: string;
     setValue: (value: string) => void;
+    isLoading?: boolean;
+    error?: string;
+    setError?: (err: string) => void;
 }
 
-export const VisiblePassword: FC<IProps> = ({value, setValue}) => {
+export const VisiblePassword: FC<IProps> = ({value, setValue, error, setError, isLoading,}) => {
 
     const [isLock, setIsLock] = useState<boolean>(true)
 
@@ -23,6 +26,9 @@ export const VisiblePassword: FC<IProps> = ({value, setValue}) => {
             setValue={setValue}
             type={isLock ? "password" : "text"}
             placeholder="Пароль..."
+            isLoading={isLoading}
+            error={error}
+            setError={setError}
         >
             <img 
                 className={classes.lock} 

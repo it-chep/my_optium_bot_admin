@@ -1,10 +1,14 @@
 import { FC } from "react";
 import classes from './spinner.module.scss'
 
-export const LoaderSpinner: FC = () => {
+interface IProps {
+    color?: string;
+}
+
+export const LoaderSpinner: FC<IProps> = ({color}) => {
 
     return (
-        <section className={classes.loaderSpinner} />
+        <section style={{background: color}} className={classes.loaderSpinner} />
     )
 
 }

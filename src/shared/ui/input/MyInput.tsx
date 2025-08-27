@@ -8,13 +8,13 @@ interface IProps {
     setValue: (value: string) => void;
     
     required?: boolean;
-    isLoading?: string;
+    isLoading?: boolean;
     error?: string;
     setError?: (err: string) => void;
 }
 
 export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> = (
-    {value, setValue, error, setError = () => {}, children, ...props}
+    {value, setValue, isLoading, error, setError = () => {}, children, ...props}
 ) => {
 
     const [currentError, setCurrentError] = useState<string>('')
@@ -46,6 +46,7 @@ export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> =
                 className={classes.container + (Boolean(children) ? ` ${classes.feature}` : '')}
             >
                 <input 
+                    disabled={isLoading}
                     value={value} 
                     onChange={e => onChangeCurrent(e.target.value)} 
                     onFocus={onFocus}

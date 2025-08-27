@@ -11,8 +11,3 @@ export const LOGIN_ROUTE: IRoute = {
     name: 'Вход',
     path: '/login'
 }
-
-export const REGISTRATION_ROUTE: IRoute = {
-    name: 'Регистрация',
-    path: '/registration'
-}

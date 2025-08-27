@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import classes from './myButton.module.scss'
+import { LoaderSpinner } from "../spinner";
 
 interface IProps {
     onClick?: () => void;
@@ -15,9 +16,9 @@ export const MyButton: FC<IProps & PropsWithChildren> = ({isLoading, error, onCl
             <button 
                 disabled={isLoading || Boolean(error)}
                 onClick={onClick} 
-                className={classes.button}
+                className={classes.button + (isLoading ? ` ${classes.loader}` : '')}
             >
-                {children}
+                { isLoading ? <section className={classes.loader}><LoaderSpinner color="#FFF" /></section> : children }
             </button>
             { error && <section className={classes.error}>*{error}</section> }
         </section>
