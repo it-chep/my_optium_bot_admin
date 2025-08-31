@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import userReducer from "../../entities/user/model/reducers/UserSlice";
-
+import {myReducer} from "../../entities/my";
+import {globalMessageReducer} from "../../entities/globalMessage"
 
 
 const store = configureStore({
     reducer: {
-        userReducer,
-        
+        myReducer,
+        globalMessageReducer
     }
 })
 
