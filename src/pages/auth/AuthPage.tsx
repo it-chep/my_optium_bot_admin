@@ -6,17 +6,15 @@ import { useAppSelector } from '../../app/store/store';
 
 export default function AuthPage(){
     const router = useNavigate()
-    const {user} = useAppSelector(s => s.userReducer) 
+    const {my} = useAppSelector(s => s.myReducer) 
 
-    if(user.isAuth){
-        router('/', {
-            replace: true
-        })
+    if(my.isAuth){
+        router('/')
     }
 
     
     return (
-        !user.isAuth
+        !my.isAuth
             ?
         <section className={classes.wrapper}>
             <Auth />

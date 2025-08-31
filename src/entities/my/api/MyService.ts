@@ -3,7 +3,7 @@ import { hashSync } from "bcrypt-ts";
 
 
 
-class UserService{
+class MyService{
 
     async login(email: string, password: string): Promise<void> {
         const hashEmail = hashSync(email, 10)
@@ -22,4 +22,4 @@ class UserService{
 
 }
 
-export const userService = new UserService()
+export const myService = new MyService()

@@ -1,11 +1,11 @@
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { useAppDispatch } from "../../../../app/store/store"
-import { UserSlice } from "../../model/reducers/UserSlice"
+import { MySlice } from "../../model/reducers/MySlice"
 
 
 
 
-export const useUserActions = () => {
+export const useMyActions = () => {
     const dispatch = useAppDispatch()
-    return bindActionCreators(UserSlice.actions, dispatch)
+    return bindActionCreators(MySlice.actions, dispatch)
 }

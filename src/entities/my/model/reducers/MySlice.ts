@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserInitialState } from "./UserState";
+import { MyInitialState } from "./MyState";
 
 
 
 
-export const UserSlice = createSlice({
-    name: 'user',
-    initialState: UserInitialState,
+export const MySlice = createSlice({
+    name: 'my',
+    initialState: MyInitialState,
     reducers: {
         setIsLoading(state, action: PayloadAction<boolean>){
             state.isLoading = action.payload;
@@ -15,12 +15,12 @@ export const UserSlice = createSlice({
             state.error = action.payload;
         },
         setIsAuth(state, action: PayloadAction<boolean>){
-            state.user.isAuth = action.payload;
+            state.my.isAuth = action.payload;
         },
         setEmail(state, action: PayloadAction<string>){
-            state.user.email = action.payload;
+            state.my.email = action.payload;
         },
     }
 })
 
-export default UserSlice.reducer
+export default MySlice.reducer
