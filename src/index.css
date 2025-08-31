@@ -1,6 +1,8 @@
 
 
 body{
+  --blue-light: #9BC7FE;
+
   --blue: #2F9BFF;
 
   --blue-hover: #0073FF;
@@ -8,6 +10,8 @@ body{
   --black: #000000;
 
   --red: #FF0000;
+
+  --yellow: #FFE565;
 
   font-size: 16px;
 }
@@ -24,6 +28,9 @@ a{
   color: var(--black);
 }
 
+ul{
+  list-style: none;
+}
 
 
 @font-face {
