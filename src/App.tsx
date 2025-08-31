@@ -45,9 +45,6 @@ function App() {
         <section className={"loader_main"}><LoaderSpinner /></section>
           :
         <>
-          <header className="App-header">
-          
-          </header>
           <Outlet />
           {
             message && <GlobalMessage />

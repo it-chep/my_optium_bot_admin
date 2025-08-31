@@ -1,0 +1,28 @@
+import { FC } from "react";
+import { sections } from "../../lib/const/sections";
+import { Link } from "react-router-dom";
+import { ISection } from "../../model/types";
+import classes from './navPages.module.scss'
+
+
+
+export const NavPages: FC = () => {
+
+    const links: ISection['sections'] = []
+
+    sections.forEach(section => section.sections.forEach(s => links.push(s)))
+
+    return (
+        <nav className={classes.navPages}>
+            <ul className={classes.list}>
+                {links.map(link => 
+                    <li className={classes.link} key={link.title}>
+                        <Link to={link.link}>
+                            {link.title}
+                        </Link>
+                    </li>
+                )}
+            </ul>
+        </nav>
+    )
+}
