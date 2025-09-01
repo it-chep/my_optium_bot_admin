@@ -4,7 +4,7 @@ import App from "../../App";
 import AuthPage from "../../pages/auth/AuthPage";
 import HomePage from "../../pages/home/HomePage";
 import { NotFound } from "../../widgets/notFound";
-import UsersPage from "../../pages/users/users";
+import UsersPage from "../../pages/users/Users";
 
 
 

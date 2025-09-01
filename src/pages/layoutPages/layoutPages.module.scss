@@ -16,6 +16,7 @@
     
 
     .container{
+        display: flex;
 
         .aside{
             width: 120px;
@@ -23,7 +24,7 @@
         }
 
         .main{
-
+            width: 100%;
         }
         
     }

@@ -1,0 +1,26 @@
+
+
+
+.badge{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 2px 20px;
+    border-radius: 8px;
+    background-color: var(--gray);
+
+    .required{
+        width: 16px;
+        height: 16px;
+    }
+
+    .name{
+        margin-right: auto;
+    }
+
+    .feature{
+        display: flex;
+        align-items: center;
+        margin-left: 32px;
+    }
+}
