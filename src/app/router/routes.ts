@@ -22,6 +22,16 @@ export const NEWSLETTERS_ROUTE: IRoute = {
     path: '/newsletters'
 }
 
+export const NEWSLETTER_CREATE_ROUTE: IRoute = {
+    name: 'Создание рассылки',
+    path: '/newsletter/create'
+}
+
+export const NEWSLETTER_UPDATE_ROUTE: IRoute = {
+    name: 'Редактирование рассылки',
+    path: '/newsletter/update'
+}
+
 export const USER_LIST_ROUTE: IRoute = {
     name: 'Списки рассылок',
     path: '/user_list'

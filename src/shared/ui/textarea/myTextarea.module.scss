@@ -1,0 +1,25 @@
+
+
+
+.container{
+    .title{
+        margin-left: 4px;
+    }
+
+    .textarea{
+        width: 100%;
+        resize: vertical ;
+        min-height: 200px;
+        border: 1px solid black;
+        outline: none;
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all .25s ease;
+
+        &:focus{
+            border: 1px solid var(--blue);
+            box-shadow: 0 0 12px 0px var(--blue);
+        }
+    }
+}
