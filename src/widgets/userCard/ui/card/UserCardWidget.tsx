@@ -6,12 +6,14 @@ import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { Lists } from "../lists/Lists";
 import { Posts } from "../posts/Posts";
 import { AddUserData } from "../../../../features/addUserData";
+import { MyButton } from "../../../../shared/ui/button";
 
 interface IProps{
     currentUser: number;
+    setCurrentUser: (currentUser: number | null) => void;
 }
 
-export const UserCardWidget: FC<IProps> = ({currentUser}) => {
+export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
 
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -65,12 +67,17 @@ export const UserCardWidget: FC<IProps> = ({currentUser}) => {
                 user
                     &&
                 <>
-                    <section className={classes.name}>{user.user.name}</section>
+                    <section className={classes.name}>
+                        {user.user.name}
+                        <section className={classes.button}>
+                            <MyButton onClick={() => setCurrentUser(null)}>Закрыть</MyButton>
+                        </section>
+                    </section>
                     <UserCard user={user} />
                     <section className={classes.dataWrap}>
                         <h3>Состоит в списках</h3>
-                        <section className={classes.listsWrap}>
-                            <section className={classes.lists}>
+                        <section className={classes.dataContainer}>
+                            <section className={classes.data}>
                                 <Lists user={user} />
                             </section>
                             <AddUserData 
@@ -83,8 +90,8 @@ export const UserCardWidget: FC<IProps> = ({currentUser}) => {
                     </section>
                     <section className={classes.dataWrap}>
                         <h3>Не отправленные информационные посты</h3>
-                        <section className={classes.postsWrap}>
-                            <section className={classes.posts}>
+                        <section className={classes.dataContainer}>
+                            <section className={classes.data}>
                                 <Posts user={user} />
                             </section>
                             <AddUserData 

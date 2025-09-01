@@ -2,9 +2,11 @@
 
 
 .container{
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
     width: 100%;
     border-left: 1px solid #eaeaea;
-    border-bottom: 1px solid #eaeaea;
 
     .loader{
         width: 100%;
@@ -20,45 +22,36 @@
         align-items: center;
         text-align: center;
         justify-content: center;
-        padding: 12px;
+        padding: 12px 40px;
         border: 1px solid #eaeaea;
         height: 60px;
         font-weight: 600;
         font-size: 20px;
+        
+        .button{
+            margin-left: auto;   
+        }
     }
 
     .dataWrap{
         text-align: center;
-        padding: 40px;
-
+        
         h3{
             margin: 10px;
         }
-
-        .listsWrap{
+        
+        .dataContainer{
+            padding: 40px;
             display: flex;
             justify-content: space-between;
             gap: 20px;
             align-items: start;
+            border-bottom: 1px solid #eaeaea;
             
-            .lists{
+            .data{
                 display: flex;
                 gap: 20px;
                 flex-wrap: wrap;
-            }
-        }
-
-        .postsWrap{
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: start;
-
-            .posts{
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-    
             }
         }
     }

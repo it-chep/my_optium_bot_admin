@@ -44,7 +44,7 @@ export const List: FC<IProps> = ({items, userItems, setLists, type, userId}) => 
     return (
         <ul className={classes.list}>
             {items.map(item => 
-                <li key={item.name}>
+                <li key={item.id}>
                     <MyCheckbox 
                         onSelected={onSelected(item)} 
                         checked={Boolean(~userItems.findIndex(userItem => userItem.name === item.name))} 

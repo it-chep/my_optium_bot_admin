@@ -45,7 +45,10 @@ export const UsersWidget: FC<IProps & PropsWithChildren> = ({setCurrentUser, chi
                     <ul className={classes.leftPanel}>
                         <li className={classes.title}>ФИО</li>
                         {users.map(user => 
-                            <li key={user.id} className={classes.fio}>
+                            <li 
+                                key={user.id} 
+                                className={classes.fio}
+                            >
                                 {user.name}
                             </li>
                         )}

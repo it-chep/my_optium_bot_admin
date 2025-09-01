@@ -1,1 +1,1 @@
-export { AddUserData } from "./ui/AddUserData";
+export { AddUserData } from "./ui/addUserData/AddUserData";

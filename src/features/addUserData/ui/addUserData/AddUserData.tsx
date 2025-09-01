@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import classes from './addUserData.module.scss'
-import { MyCheckbox } from "../../../shared/ui/myCheckbox";
-import { List } from "./list/List";
-import { MyButton } from "../../../shared/ui/button";
-import { DropDownList } from "./dropDownList/DropDownList";
-import { IItem } from "../model/types";
+import { MyCheckbox } from "../../../../shared/ui/myCheckbox";
+import { List } from "../list/List";
+import { MyButton } from "../../../../shared/ui/button";
+import { DropDownList } from "../dropDownList/DropDownList";
+import { IItem } from "../../model/types";
 
 interface IProps {
     userItems: IItem[];

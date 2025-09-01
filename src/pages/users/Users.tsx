@@ -16,7 +16,7 @@ export default function UsersPage(){
                     {
                         currentUser
                             &&
-                        <UserCardWidget currentUser={currentUser} />
+                        <UserCardWidget setCurrentUser={setCurrentUser} currentUser={currentUser} />
                     }
                 </UsersWidget>
             </section>
