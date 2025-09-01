@@ -14,12 +14,12 @@
     font-size: 18;
     font-weight: 500;
     z-index: 99;
+    color: #FFF;
 
     &.ok{
         background-color: #228b22;
     }
     &.error{
-        color: #FFF;
         background-color: #8b0000;
     }
 }

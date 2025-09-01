@@ -1,0 +1,49 @@
+
+
+
+.container{
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    padding: 16px 24px;
+    align-items: center;
+    justify-content: space-between;
+
+    .data{
+        display: flex;
+        align-items: center;
+        gap: 40px;
+
+        .sign{
+            width: 200px;
+            img{
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+            }
+        }
+
+
+        .badge{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #C8C8C8;
+            height: 32px;
+            padding: 0px 52px;
+            border-radius: 8px;
+            width: 200px;
+
+            &.one{
+                background-color: #C8C8C8;
+            }   
+            &.two{
+                background-color: #FFE565;
+            }
+            &.free{
+                background-color: #35ED27;
+            }
+        }
+    }
+
+
+}

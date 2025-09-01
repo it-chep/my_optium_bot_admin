@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {myReducer} from "../../entities/my";
 import {globalMessageReducer} from "../../entities/globalMessage"
 import {globalLoadingReducer} from "../../entities/globalLoading"
+import {newsletterReducer} from "../../entities/newsletters"
 
 
 const store = configureStore({
     reducer: {
         myReducer,
         globalMessageReducer,
-        globalLoadingReducer
+        globalLoadingReducer,
+        newsletterReducer
     }
 })
 
