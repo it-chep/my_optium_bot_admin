@@ -52,7 +52,7 @@ export const DropDownList: FC<IProps> = ({userItems, type, setLists, userId}) =>
                     ?
                 <section className={classes.loader}><LoaderSpinner /></section>
                     :
-                <section>
+                <section className={classes.list}>
                     <List 
                         userId={userId} 
                         type={type} 
