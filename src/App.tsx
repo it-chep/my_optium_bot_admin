@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { myService, useMyActions } from './entities/my';
 import { LOGIN_ROUTE } from './app/router/routes';
 import { GlobalMessage } from './entities/globalMessage';
+import { GlobalLoading } from './entities/globalLoading';
 
 function App() {
 
@@ -14,7 +15,8 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(!my.isAuth)
   const router = useNavigate()
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
-
+  const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
+  
   const auth = async () => {
     try{
       setIsLoading(true)
@@ -46,9 +48,8 @@ function App() {
           :
         <>
           <Outlet />
-          {
-            globalMessage.message && <GlobalMessage />
-          }
+          { globalMessage.message && <GlobalMessage /> }
+          { globalIsLoading && <GlobalLoading /> }
           <footer>
 
           </footer>
