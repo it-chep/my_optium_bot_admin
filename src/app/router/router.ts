@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { HOME_ROUTE, LOGIN_ROUTE, NEWSLETTER_CREATE_ROUTE, NEWSLETTER_UPDATE_ROUTE, NEWSLETTERS_ROUTE, USERS_ROUTE } from "./routes";
+import { HOME_ROUTE, LISTS_ROUTE, LOGIN_ROUTE, NEWSLETTER_CREATE_ROUTE, NEWSLETTER_UPDATE_ROUTE, NEWSLETTERS_ROUTE, USERS_ROUTE } from "./routes";
 import App from "../../App";
 import AuthPage from "../../pages/auth/AuthPage";
 import HomePage from "../../pages/home/HomePage";
@@ -7,6 +7,7 @@ import { NotFound } from "../../widgets/notFound";
 import UsersPage from "../../pages/users/Users";
 import NewslettersPage from "../../pages/newsletters/NewslettersPage";
 import NewsletterChangePage from "../../pages/newsletterChangePage/NewsletterChangePage";
+import ListsPage from "../../pages/lists/Lists";
 
 
 
@@ -39,6 +40,10 @@ const Router: RouteObject[] = [
             {
                 path: NEWSLETTER_UPDATE_ROUTE.path,
                 Component: NewsletterChangePage
+            },
+            {
+                path: LISTS_ROUTE.path,
+                Component: ListsPage
             }
         ]
     }

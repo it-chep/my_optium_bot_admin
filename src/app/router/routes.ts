@@ -32,7 +32,7 @@ export const NEWSLETTER_UPDATE_ROUTE: IRoute = {
     path: '/newsletter/update'
 }
 
-export const USER_LIST_ROUTE: IRoute = {
+export const LISTS_ROUTE: IRoute = {
     name: 'Списки рассылок',
-    path: '/user_list'
+    path: '/lists'
 }
