@@ -6,15 +6,15 @@ import classes from './myInput.module.scss'
 interface IProps {
     value: string;
     setValue: (value: string) => void;
-    
     required?: boolean;
     isLoading?: boolean;
+    title?: string;
     error?: string;
     setError?: (err: string) => void;
 }
 
 export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> = (
-    {value, setValue, isLoading, error, setError = () => {}, children, ...props}
+    {value, setValue, isLoading, error, title, setError = () => {}, children, ...props}
 ) => {
 
     const [currentError, setCurrentError] = useState<string>('')
@@ -41,6 +41,7 @@ export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> =
 
     return (
         <section className={classes.wrapper}>
+            <section className={classes.title}>{title}</section>
             <section 
                 ref={containerRef} 
                 className={classes.container + (Boolean(children) ? ` ${classes.feature}` : '')}
