@@ -9,7 +9,6 @@ export const GlobalLoadingSlice = createSlice({
     initialState: GlobalLoadingInitialState,
     reducers: {
         setIsLoading(state, action: PayloadAction<boolean>){
-            console.log(action.payload)
             state.isLoading = action.payload;
         }
     }

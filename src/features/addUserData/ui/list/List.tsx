@@ -4,6 +4,7 @@ import { MyCheckbox } from "../../../../shared/ui/myCheckbox";
 import { IItem } from "../../model/types";
 import { userService } from "../../../../entities/user";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
+import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 
 interface IProps {
     userItems: IItem[];
@@ -16,6 +17,7 @@ interface IProps {
 export const List: FC<IProps> = ({items, userItems, setLists, type, userId}) => {
  
     const {setIsLoading} = useGlobalLoadingActions()
+    const {setGlobalMessage} = useGlobalMessageActions()
 
     const onSelected = (item: IItem) => {
         return async (selected: boolean) => {
@@ -27,14 +29,15 @@ export const List: FC<IProps> = ({items, userItems, setLists, type, userId}) => 
                 else{
                     await userService.setPost(userId, item.id)
                 }
+                setLists(item, selected)
             }
             catch(e){
                 console.log(e)
+                setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
             }
             finally{
                 setIsLoading(false)
             }
-            setLists(item, selected)
         }
     }
 
