@@ -1,0 +1,24 @@
+
+
+.container{
+   
+      
+    .actionWrap{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        padding: 0 40px;
+
+        .action{
+            display: block;
+            cursor: pointer;
+            img{
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+            }
+        }
+    }
+
+}
