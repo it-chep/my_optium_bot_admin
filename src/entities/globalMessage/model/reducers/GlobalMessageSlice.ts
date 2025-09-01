@@ -10,13 +10,13 @@ export const GlobalMessageSlice = createSlice({
     initialState: GlobalMessageInitialState,
     reducers: {
         setMessage(state, action: PayloadAction<string>){
-            state.message = action.payload;
+            state.globalMessage.message = action.payload;
         },
         setType(state, action: PayloadAction<IGlobalMessage['type']>){
-            state.type = action.payload;
+            state.globalMessage.type = action.payload;
         },
         setGlobalMessage(state, action: PayloadAction<IGlobalMessage>){
-            state = action.payload;
+            state.globalMessage = action.payload;
         }
     }
 })

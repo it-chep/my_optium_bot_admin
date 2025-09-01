@@ -13,7 +13,7 @@ function App() {
   const {my} = useAppSelector(s => s.myReducer)
   const [isLoading, setIsLoading] = useState<boolean>(!my.isAuth)
   const router = useNavigate()
-  const {message} = useAppSelector(s => s.globalMessageReducer)
+  const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
 
   const auth = async () => {
     try{
@@ -47,7 +47,7 @@ function App() {
         <>
           <Outlet />
           {
-            message && <GlobalMessage />
+            globalMessage.message && <GlobalMessage />
           }
           <footer>
 
