@@ -5,6 +5,7 @@ import { IItem } from "../../model/types";
 import { listService } from "../../../../entities/list";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { List } from "../list/List";
+import { postService } from "../../../../entities/post";
 
 interface IProps {
     userItems: IItem[];
@@ -27,7 +28,8 @@ export const DropDownList: FC<IProps> = ({userItems, type, setLists, userId}) =>
                 setItems(itemsRes)
             }
             else{
-                
+                const itemsRes = await postService.getAll()
+                setItems(itemsRes)
             }
         }
         catch(e){

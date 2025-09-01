@@ -73,18 +73,26 @@ export const UserCardWidget: FC<IProps> = ({currentUser}) => {
                             <section className={classes.lists}>
                                 <Lists user={user} />
                             </section>
-                                <AddUserData 
-                                    userId={currentUser} 
-                                    setLists={setLists} 
-                                    type="lists" 
-                                    userItems={user.lists} 
-                                />
+                            <AddUserData 
+                                userId={currentUser} 
+                                setLists={setLists} 
+                                type="lists" 
+                                userItems={user.lists} 
+                            />
                         </section>
                     </section>
-                    <section className={classes.postsWrap}>
+                    <section className={classes.dataWrap}>
                         <h3>Не отправленные информационные посты</h3>
-                        <section className={classes.posts}>
-                            <Posts user={user} />
+                        <section className={classes.postsWrap}>
+                            <section className={classes.posts}>
+                                <Posts user={user} />
+                            </section>
+                            <AddUserData 
+                                userId={currentUser} 
+                                setLists={setLists} 
+                                type="posts" 
+                                userItems={user.lists} 
+                            />
                         </section>
                     </section>
                 </>

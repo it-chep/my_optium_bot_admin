@@ -48,20 +48,19 @@
             }
         }
 
+        .postsWrap{
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: start;
+
+            .posts{
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+    
+            }
+        }
     }
     
-    .postsWrap{
-        text-align: center;
-        padding: 40px;
-
-        h3{
-            margin: 10px;
-        }
-        .posts{
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-
-        }
-    }
 }
