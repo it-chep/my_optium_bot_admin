@@ -1,4 +1,4 @@
-import { LISTS_ROUTE, NEWSLETTERS_ROUTE, USERS_ROUTE } from "../../../../app/router/routes";
+import { INFORMATION_POSTS_ROUTE, LISTS_ROUTE, NEWSLETTERS_ROUTE, POSTS_THEMES_ROUTE, USERS_ROUTE } from "../../../../app/router/routes";
 import { ISection } from "../../model/types";
 
 
@@ -24,6 +24,19 @@ export const sections: ISection[] = [
             {
                 title: LISTS_ROUTE.name,
                 link: LISTS_ROUTE.path
+            }
+        ]
+    },
+    {
+        title: 'Информация',
+        sections: [
+            {
+                title: INFORMATION_POSTS_ROUTE.name,
+                link: INFORMATION_POSTS_ROUTE.path
+            },
+            {
+                title: POSTS_THEMES_ROUTE.name,
+                link: POSTS_THEMES_ROUTE.path
             }
         ]
     }
