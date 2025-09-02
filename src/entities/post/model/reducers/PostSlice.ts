@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PostInitialState } from "./PostInitialState";
+import { IPost } from "../types";
 
 
 
@@ -15,7 +16,10 @@ export const PostSlice = createSlice({
         },
         setIsRequired(state, action: PayloadAction<boolean>){
             state.post.is_theme_required = action.payload;
-        }
+        },
+        setPost(state, action: PayloadAction<IPost>){
+            state.post = action.payload;
+        },
     }
 })
 

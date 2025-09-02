@@ -10,6 +10,20 @@ class PostService {
             method: "DELETE"
         })
     }
+
+    async create(post: IPost){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/posts_themes', {
+            method: "POST",
+            body: JSON.stringify({post})
+        })
+    }
+
+    async update(post: IPost){
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/posts_themes', {
+        //     method: "POST",
+        //     body: JSON.stringify({post})
+        // })
+    }
  
     async getAll(): Promise<IPost[]> {
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/posts_themes/')

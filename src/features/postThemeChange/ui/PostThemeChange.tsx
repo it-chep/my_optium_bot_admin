@@ -1,19 +1,20 @@
 import { FC } from "react";
 import { MyInput } from "../../../shared/ui/input";
-import { listService, useListActions } from "../../../entities/list";
 import { MyButton } from "../../../shared/ui/button";
-import classes from './listChange.module.scss'
+import classes from './postThemeChange.module.scss'
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { useNavigate } from "react-router-dom";
-import { LISTS_ROUTE } from "../../../app/router/routes";
+import { POSTS_THEMES_ROUTE } from "../../../app/router/routes";
+import { postService, usePostActions } from "../../../entities/post";
+import { MyCheckbox } from "../../../shared/ui/myCheckbox";
 
 interface IProps {
     isCreate: boolean;
 }
 
-export const ListChange: FC<IProps> = ({isCreate}) => {
+export const PostThemeChange: FC<IProps> = ({isCreate}) => {
 
     const {setGlobalMessage} = useGlobalMessageActions()
 
@@ -21,23 +22,23 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
 
     const router = useNavigate()
 
-    const {list} = useAppSelector(s => s.listReducer)
-    const {setName} = useListActions()
+    const {post} = useAppSelector(s => s.postReducer)
+    const {setName, setIsRequired} = usePostActions()
 
     const onSend = async () => {
         try{
             setIsLoading(true)
             if(isCreate){
-                await listService.create(list.name)
+                await postService.create(post)
             }
             else{
-                await listService.create(list.name)
+                await postService.update(post)
             }
-            router(LISTS_ROUTE.path)
+            router(POSTS_THEMES_ROUTE.path)
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: `Ошибка при ${isCreate? 'создании' : 'изменении'} списка`, type: 'error'})
+            setGlobalMessage({message: `Ошибка при ${isCreate? 'создании' : 'изменении'} темы поста`, type: 'error'})
         }
         finally{
             setIsLoading(false)
@@ -47,10 +48,17 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
     return (
         <section className={classes.container}>
             <MyInput
-                title="Название списка"
-                value={list.name}
+                title="Название темы"
+                value={post.name}
                 setValue={setName}
             />
+            <section className={classes.required}>
+                <section className={classes.subtitle}>Обязательная тема</section>
+                <MyCheckbox
+                    checked={post.is_theme_required}
+                    onSelected={setIsRequired}
+                />
+            </section>
             <section className={classes.button}>
                 <MyButton onClick={onSend}>
                     {isCreate ? 'Создать' : 'Обновить'}

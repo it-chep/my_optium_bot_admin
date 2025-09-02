@@ -67,10 +67,10 @@ export const POSTS_THEMES_ROUTE: IRoute = {
 
 export const POST_THEME_CREATE_ROUTE: IRoute = {
     name: 'Создание темы поста',
-    path: '/information_post/create'
+    path: '/post_theme/create'
 }
 
 export const POST_THEME_UPDATE_ROUTE: IRoute = {
     name: 'Обновление темы поста',
-    path: '/information_post/update'
+    path: '/post_theme/update'
 }
