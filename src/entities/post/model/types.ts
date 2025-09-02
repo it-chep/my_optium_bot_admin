@@ -6,3 +6,9 @@ export interface IPost{
     name: string;
     is_theme_required: boolean;
 }
+
+export interface IPostInitialState{
+    post: IPost;
+    error: string;
+    isLoading: boolean;
+}

@@ -4,6 +4,12 @@ import { IPost } from "../model/types"
 
 
 class PostService {
+
+    async delete(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/posts_themes/' + id, {
+            method: "DELETE"
+        })
+    }
  
     async getAll(): Promise<IPost[]> {
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/posts_themes/')
@@ -34,7 +40,22 @@ class PostService {
                 "id": 5,
                 "name": "Тема херня",
                 "is_theme_required": false
-            }
+            },
+            {
+                "id": 6,
+                "name": "Тема херня",
+                "is_theme_required": false
+            },
+            {
+                "id": 7,
+                "name": "Тема херня",
+                "is_theme_required": false
+            },
+            {
+                "id": 8,
+                "name": "Тема херня",
+                "is_theme_required": false
+            },
         ]
     }
 
