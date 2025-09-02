@@ -30,7 +30,7 @@ class NewslettersService{
             id: 11,
             name: '123',
             text: "aaaaaaa",
-            content_type_id: 4,
+            content_type_id: 2,
             users_lists: [1, 3],
             media_id: '',
         }

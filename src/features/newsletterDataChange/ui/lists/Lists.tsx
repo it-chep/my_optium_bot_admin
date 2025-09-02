@@ -90,6 +90,13 @@ export const Lists: FC<IProps> = ({type}) => {
                 onClick={() => setOpen(!open)} 
                 className={classes.button}
             >
+                {
+                    type === "lists"
+                        ? 
+                    newsletterData.users_lists.length === 0 && 'не выбрано'
+                        :
+                    items.find(item => item.id === newsletterData.content_type_id)?.name || (newsletterData.content_type_id < 0 && 'не выбрано')
+                }
                 <img alt="Открыть" src={arrow} />
             </section>
             {
