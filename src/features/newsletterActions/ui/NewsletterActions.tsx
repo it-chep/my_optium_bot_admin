@@ -1,7 +1,6 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import classes from './newsletterActions.module.scss'
 import { INewsletter } from "../../../entities/newsletters";
-import { Delete } from "./delete/Delete";
 import { Send } from "./send/Send";
 import { SendTest } from "./sendTest/SendTest";
 import { Edit } from "./edit/Edit";
@@ -11,7 +10,7 @@ interface IProps {
     onChangeStatusId: () => void;
 }
 
-export const NewsletterActions: FC<IProps> = ({newsletter, onChangeStatusId}) => {
+export const NewsletterActions: FC<IProps & PropsWithChildren> = ({newsletter, onChangeStatusId, children}) => {
 
 
     return (
@@ -27,7 +26,7 @@ export const NewsletterActions: FC<IProps> = ({newsletter, onChangeStatusId}) =>
                     <Edit id={newsletter.id} />
                 </section>
                 <section>
-                    <Delete id={newsletter.id} />
+                    {children}
                 </section>
             </section>
         </section>

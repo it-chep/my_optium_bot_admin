@@ -7,6 +7,7 @@ import { NewsletterActions } from "../../../features/newsletterActions";
 import { MyButton } from "../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
 import { NEWSLETTER_CREATE_ROUTE } from "../../../app/router/routes";
+import { DeleteAction } from "../../../features/deleteAction";
 
 
 
@@ -53,6 +54,10 @@ export const NewslettersWidget: FC = () => {
         }
     }
 
+    const onDelete = async (id: number) => {
+        await newslettersService.delete(id)
+    }
+
     return (
         <section className={classes.container}>
             {
@@ -80,7 +85,14 @@ export const NewslettersWidget: FC = () => {
                                 <NewsletterActions 
                                     newsletter={newsletter} 
                                     onChangeStatusId={onChangeStatusId(newsletter.id)}
-                                />
+                                >
+                                    <DeleteAction 
+                                        successText="Рассылка успешно удалена"
+                                        errorText="Ошибка при удалении рассылки"
+                                        questionText="Точно хотите удалить рассылку ?"
+                                        onDelete={() => onDelete(newsletter.id)}
+                                    />
+                                </NewsletterActions>
                             }
                         </NewsletterItem>
                     )}

@@ -1,0 +1,56 @@
+import { FC, useState } from "react";
+import classes from './deleteAction.module.scss'
+import { Modal } from "../../../shared/ui/modal";
+import { ConfirmationAction } from "../../../shared/ui/confirmationAction";
+import { useGlobalMessageActions } from "../../../entities/globalMessage";
+import { Sign } from "../../../shared/ui/sign";
+import deleteImg from '../../../shared/lib/assets/delete.png'
+import { useGlobalLoadingActions } from "../../../entities/globalLoading";
+
+interface IProps {
+   onDelete: () => Promise<void>;
+   questionText: string;
+   errorText: string;
+   successText: string;
+}
+
+export const DeleteAction: FC<IProps> = ({onDelete, questionText, errorText, successText}) => {
+
+    const [open, setOpen] = useState<boolean>(false)
+    const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsLoading} = useGlobalLoadingActions()
+
+    const onDeleteWrap = async () => {
+        try{
+            setIsLoading(true)
+            setOpen(false)
+            await onDelete()
+            setGlobalMessage({message: successText, type: 'ok'})
+        }
+        catch(e){
+            console.log(e)
+            setGlobalMessage({message: errorText, type: 'error'})
+        }
+        finally{
+            setIsLoading(false)
+        }
+    }
+
+    return (
+        <>
+            <section className={classes.action} onClick={() => setOpen(true)}>
+                <Sign sign="Удалить">
+                    <img src={deleteImg} />
+                </Sign>
+            </section>
+            <Modal setOpen={setOpen} open={open}>
+                <ConfirmationAction 
+                    onClick={onDeleteWrap}
+                    setOpen={setOpen} 
+                    title={questionText}
+                    type='delete'
+                />
+            </Modal>
+        </>
+    )
+}
