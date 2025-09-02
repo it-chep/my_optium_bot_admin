@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { IList, ListItem, listService } from "../../../entities/list";
+import { IList, ListItem, listService, useListActions } from "../../../entities/list";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import classes from './listsWidget.module.scss'
@@ -7,6 +7,7 @@ import { ListActions } from "../../../features/listActions";
 import { MyButton } from "../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
 import { LIST_CREATE_ROUTE } from "../../../app/router/routes";
+import { DeleteAction } from "../../../features/deleteAction";
 
 
 
@@ -18,12 +19,11 @@ export const ListsWidget: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setInitialState} = useListActions()
 
-    const [open, setOpen] = useState<boolean>(false)
-    const [selectedId, setSelectedId] = useState<number>(-1)
-
-    const [isSend, setIsSend] = useState<boolean>(false)
-
+    const onDelete = async (id: number) => {
+        await listService.delete(id)
+    }
 
     const getData = async () => {
         try{
@@ -43,6 +43,7 @@ export const ListsWidget: FC = () => {
 
     useEffect(() => {
         getData()
+        setInitialState()
     }, [])
 
     return (
@@ -60,7 +61,14 @@ export const ListsWidget: FC = () => {
                     </li>
                     {lists.map(list => 
                         <ListItem key={list.id} listItem={list}>
-                            <ListActions setSelectedId={setSelectedId} list={list} />
+                            <ListActions list={list}>
+                                <DeleteAction 
+                                    successText="Список рассылок успешно удален"
+                                    errorText="Ошибка при удалении списка рассылок"
+                                    questionText="Точно хотите удалить список ?"
+                                    onDelete={() => onDelete(list.id)}
+                                />
+                            </ListActions>
                         </ListItem>
                     )}
                 </ul>

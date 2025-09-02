@@ -11,10 +11,11 @@ class ListService {
     }
 
     async create(name: string){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users-lists/', {
-            method: "POST",
-            body: JSON.stringify({name})
-        })
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users-lists/', {
+        //     method: "POST",
+        //     body: JSON.stringify({name})
+        // })
+        await new Promise(resolve => setTimeout(resolve, 1000))
     }
 
     async getAll(){
