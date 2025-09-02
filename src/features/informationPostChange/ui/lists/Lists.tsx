@@ -84,9 +84,9 @@ export const Lists: FC<IProps> = ({type}) => {
                 {
                     type === "posts" 
                         ? 
-                    items.find(item => item.id === informationPost.theme_id)?.name  || 'не выбрано'
+                    items.find(item => item.id === informationPost.theme_id)?.name || (informationPost.theme_id < 0 && 'не выбрано')
                         :
-                    items.find(item => item.id === informationPost.content_type_id)?.name || 'не выбрано'
+                    items.find(item => item.id === informationPost.content_type_id)?.name || (informationPost.content_type_id < 0 && 'не выбрано')
                 }
                 <img alt="Открыть" src={arrow} />
             </section>
