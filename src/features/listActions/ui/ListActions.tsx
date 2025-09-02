@@ -1,9 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import classes from './listActions.module.scss'
-import { Delete } from "./delete/Delete";
 import { IList } from "../../../entities/list";
 import { Edit } from "./edit/Edit";
-
 
 interface IProps{
     list: IList;

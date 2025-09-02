@@ -1,6 +1,6 @@
 import { FC } from "react";
-import classes from '../newsletterActions.module.scss'
-import editImg from '../../../../shared/lib/assets/edit.png'
+import classes from './editAction.module.scss'
+import editImg from '../../../shared/lib/assets/edit.png'
 import { useNavigate } from "react-router-dom";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
