@@ -12,6 +12,7 @@ import ListChangePage from "../../pages/listChange/ListChangePage";
 import InformationPostsPage from "../../pages/informationPosts/InformationPosts";
 import PostsThemesPage from "../../pages/postsThemes/PostsThemes";
 import PostThemeChangePage from "../../pages/postThemeChange/PostThemeChange";
+import InformationPostChangePage from "../../pages/informationPostChange/InformationPostChange";
 
 
 
@@ -61,14 +62,14 @@ const Router: RouteObject[] = [
                 path: INFORMATION_POSTS_ROUTE.path,
                 Component: InformationPostsPage
             },
-            // {
-            //     path: INFORMATION_POST_CREATE_ROUTE.path,
-            //     Component: ListChangePage
-            // },
-            // {
-            //     path: INFORMATION_POST_UPDATE_ROUTE.path,
-            //     Component: ListChangePage
-            // },
+            {
+                path: INFORMATION_POST_CREATE_ROUTE.path,
+                Component: InformationPostChangePage
+            },
+            {
+                path: INFORMATION_POST_UPDATE_ROUTE.path,
+                Component: InformationPostChangePage
+            },
             {
                 path: POSTS_THEMES_ROUTE.path,
                 Component: PostsThemesPage

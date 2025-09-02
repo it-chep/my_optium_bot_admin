@@ -20,6 +20,29 @@ class InformationPostService {
         // })
         await new Promise(resolve => setTimeout(resolve, 1000))
     }
+
+     async update(post: IInformationPostData){
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts/', {
+        //     method: "POST",
+        //     body: JSON.stringify({post})
+        // })
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+
+    async get(id: number): Promise<IInformationPostData> {
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts/' + id)
+        // const {}: {} = await res.json()
+
+        return {
+            id: 1,
+            post_name: 'Name',
+            theme_id: 3,
+            message: 'message',
+            order: 24,
+            media_id: 'url',
+            content_type_id: 1,
+        }
+    }
     
     async getAll(){
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts')

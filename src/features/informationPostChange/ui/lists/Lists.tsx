@@ -1,0 +1,106 @@
+import { FC, useState } from "react";
+import classes from './lists.module.scss'
+import { DropDownList } from "../../../../shared/ui/dropDown";
+import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
+import { useGlobalMessageActions } from "../../../../entities/globalMessage";
+import { useAppSelector } from "../../../../app/store/store";
+import { newslettersService, useNewsletterActions } from "../../../../entities/newsletters";
+import arrow from '../../../../shared/lib/assets/arrowDown.png'
+import { IItem } from "../../../../shared/model/types";
+import { useInformationPostActions } from "../../../../entities/informationPost";
+import { postService } from "../../../../entities/post";
+
+interface IProps {
+    type: 'posts' | 'fileType'
+}
+
+
+export const Lists: FC<IProps> = ({type}) => {
+
+    const [open, setOpen] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    
+    const {informationPost} = useAppSelector(s => s.informationPostReducer)
+    const {setThemeId, setContentTypeId} = useInformationPostActions()
+
+    const {setIsLoading: setGlobalIsLoading} = useGlobalLoadingActions()
+    const {setGlobalMessage} = useGlobalMessageActions()
+    
+    const [items, setItems] = useState<IItem[]>([])
+    
+    const getData = async () => {
+        try {
+            setIsLoading(true)
+            if(type === 'posts'){
+                const itemsRes = await postService.getAll()
+                setItems(itemsRes)   
+            }
+            else{
+                const itemsRes = await newslettersService.getContentTypes()
+                setItems(itemsRes)   
+            }
+        }
+        catch(e){
+            console.log(e)
+            setGlobalMessage({message: 'Ошибка при получении данных', type: 'error'})
+        }
+        finally{
+            setIsLoading(false)
+        }
+    }
+
+    const setItem = (item: {id: number, name: string}, selected: boolean) => { 
+        if(type === 'posts'){
+            setThemeId(item.id)
+        }
+        else{
+            setContentTypeId(item.id)
+        }
+    }
+    
+    const onSelected = (item: IItem) => {
+        return (selected: boolean) => {
+            try{
+                setGlobalIsLoading(true)
+                setItem(item, selected)
+            }
+            catch(e){
+                console.log(e)
+                setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
+            }
+            finally{
+                setGlobalIsLoading(false)
+            }
+        }
+    }
+
+    return (
+        <section className={classes.container}>
+            <section 
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => setOpen(!open)} 
+                className={classes.button}
+            >
+                {
+                    type === "posts" 
+                        ? 
+                    items.find(item => item.id === informationPost.theme_id)?.name  || 'не выбрано'
+                        :
+                    items.find(item => item.id === informationPost.content_type_id)?.name || 'не выбрано'
+                }
+                <img alt="Открыть" src={arrow} />
+            </section>
+            {
+                open
+                    &&
+                <DropDownList 
+                    onSelected={onSelected}
+                    getList={getData}
+                    isLoading={isLoading}
+                    items={items}
+                    selectedIdItems={type === "posts" ? [informationPost.theme_id] : [informationPost.content_type_id]}
+                />
+            }
+        </section>
+    )
+}

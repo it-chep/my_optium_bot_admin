@@ -6,6 +6,7 @@ import {globalLoadingReducer} from "../../entities/globalLoading"
 import {newsletterReducer} from "../../entities/newsletters"
 import {listReducer} from "../../entities/list"
 import { postReducer } from "../../entities/post";
+import { informationPostReducer } from "../../entities/informationPost";
 
 
 const store = configureStore({
@@ -16,7 +17,7 @@ const store = configureStore({
         newsletterReducer,
         listReducer,
         postReducer,
-        
+        informationPostReducer
     }
 })
 

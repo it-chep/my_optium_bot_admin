@@ -1,4 +1,4 @@
-import { ListsWidget } from '../../widgets/lists'
+import { InformationPostsWidget } from '../../widgets/informationPosts'
 import { LayoutPages } from '../layoutPages'
 import classes from './informationPosts.module.scss'
 
@@ -7,9 +7,9 @@ export default function InformationPostsPage(){
 
 
     return (
-        <LayoutPages title='Списки рассылок'>
+        <LayoutPages title='Информационные посты'>
             <section className={classes.container}>
-                <ListsWidget />
+                <InformationPostsWidget />
             </section>
         </LayoutPages>
     )

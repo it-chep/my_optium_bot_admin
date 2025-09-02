@@ -23,15 +23,15 @@ export const Features: FC<IProps> = ({post}) => {
 
     return (
         <section className={classes.container}>
+            <EditAction 
+                onEdit={onEdit}     
+                toPath={POST_THEME_UPDATE_ROUTE.path}
+            />
             <DeleteAction 
                 questionText="Точно хотите удалить тему ?"
                 errorText="Произошла ошибка при удалении темы"
                 successText="Тема успешна удалена"
                 onDelete={() => onDelete()} 
-            />
-            <EditAction 
-                onEdit={onEdit}     
-                toPath={POST_THEME_UPDATE_ROUTE.path}
             />
         </section>
     )
