@@ -11,6 +11,7 @@
     top: 0;
     margin-top: 50px;
     z-index: 9;
+    padding: 12px 20px;
 
     .loader{
         display: flex;
@@ -22,8 +23,6 @@
     .list{
         max-height: 200px;
         overflow: auto;
-        padding: 12px 20px;
-        overflow: hidden;
-
+        
     }
 }
