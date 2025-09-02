@@ -1,5 +1,7 @@
 import { RouteObject } from "react-router-dom";
-import { HOME_ROUTE, INFORMATION_POST_CREATE_ROUTE, INFORMATION_POST_UPDATE_ROUTE, INFORMATION_POSTS_ROUTE, LIST_CREATE_ROUTE, LIST_UPDATE_ROUTE, LISTS_ROUTE, LOGIN_ROUTE, NEWSLETTER_CREATE_ROUTE, NEWSLETTER_UPDATE_ROUTE, NEWSLETTERS_ROUTE, POST_THEME_CREATE_ROUTE, POST_THEME_UPDATE_ROUTE, POSTS_THEMES_ROUTE, USERS_ROUTE } from "./routes";
+import { ADMIN_MESSAGE_CREATE_ROUTE, ADMIN_MESSAGES_ROUTE, HOME_ROUTE, INFORMATION_POST_CREATE_ROUTE, INFORMATION_POST_UPDATE_ROUTE, INFORMATION_POSTS_ROUTE, LIST_CREATE_ROUTE, 
+    LIST_UPDATE_ROUTE, LISTS_ROUTE, LOGIN_ROUTE, NEWSLETTER_CREATE_ROUTE, NEWSLETTER_UPDATE_ROUTE, NEWSLETTERS_ROUTE, 
+    POST_THEME_CREATE_ROUTE, POST_THEME_UPDATE_ROUTE, POSTS_THEMES_ROUTE, USERS_ROUTE } from "./routes";
 import App from "../../App";
 import AuthPage from "../../pages/auth/AuthPage";
 import HomePage from "../../pages/home/HomePage";
@@ -13,6 +15,8 @@ import InformationPostsPage from "../../pages/informationPosts/InformationPosts"
 import PostsThemesPage from "../../pages/postsThemes/PostsThemes";
 import PostThemeChangePage from "../../pages/postThemeChange/PostThemeChange";
 import InformationPostChangePage from "../../pages/informationPostChange/InformationPostChange";
+import AdminMessagesPage from "../../pages/adminMessages/AdminMessages";
+import AdminMessagesCreatePage from "../../pages/adminMessagesCreate/AdminMessagesCreate";
 
 
 
@@ -82,6 +86,14 @@ const Router: RouteObject[] = [
                 path: POST_THEME_UPDATE_ROUTE.path,
                 Component: PostThemeChangePage
             },
+            {
+                path: ADMIN_MESSAGES_ROUTE.path,
+                Component: AdminMessagesPage
+            },
+            {
+                path: ADMIN_MESSAGE_CREATE_ROUTE.path,
+                Component: AdminMessagesCreatePage
+            }
         ]
     }
 ]

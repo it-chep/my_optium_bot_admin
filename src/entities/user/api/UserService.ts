@@ -21,7 +21,88 @@ class UserService{
                 "tg_id": 123,
                 "metrics_link": "https://music.yandex.ru/album/37514534",
                 "birthday": "2004-05-11"
-            }
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максим Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            {
+                "id": 1,
+                "name": "Нечепорук Максивввввм Алексеевич",
+                "sex": "М",
+                "tg_id": 123,
+                "metrics_link": "https://music.yandex.ru/album/37514534",
+                "birthday": "2004-05-11"
+            },
+            
         ]
     }
 

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import { useAppSelector } from './app/store/store';
 import { LoaderSpinner } from './shared/ui/spinner';
@@ -17,6 +17,12 @@ function App() {
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
   
+  const {pathname} = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({top: 0})
+  }, [pathname])
+
   const auth = async () => {
     try{
       setIsLoading(true)

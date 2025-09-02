@@ -74,3 +74,13 @@ export const POST_THEME_UPDATE_ROUTE: IRoute = {
     name: 'Обновление темы поста',
     path: '/post_theme/update'
 }
+
+export const ADMIN_MESSAGES_ROUTE: IRoute = {
+    name: 'Тексты админских сообщений',
+    path: '/admin_messages'
+}
+
+export const ADMIN_MESSAGE_CREATE_ROUTE: IRoute = {
+    name: 'Создание текста админского сообщения',
+    path: '/admin_message/create'
+}
