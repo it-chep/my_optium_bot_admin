@@ -1,7 +1,5 @@
 import { IRoute } from "./types";
 
-
-
 export const HOME_ROUTE: IRoute = {
     name: 'Главная',
     path: '/',
@@ -59,5 +57,20 @@ export const INFORMATION_POST_CREATE_ROUTE: IRoute = {
 
 export const INFORMATION_POST_UPDATE_ROUTE: IRoute = {
     name: 'Обновление информационного поста',
+    path: '/information_post/update'
+}
+
+export const POSTS_THEMES_ROUTE: IRoute = {
+    name: 'Темы постов',
+    path: '/posts_themes'
+}
+
+export const POST_THEME_CREATE_ROUTE: IRoute = {
+    name: 'Создание темы поста',
+    path: '/information_post/create'
+}
+
+export const POST_THEME_UPDATE_ROUTE: IRoute = {
+    name: 'Обновление темы поста',
     path: '/information_post/update'
 }

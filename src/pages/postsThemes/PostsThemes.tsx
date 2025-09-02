@@ -1,13 +1,13 @@
 import { ListsWidget } from '../../widgets/lists'
 import { LayoutPages } from '../layoutPages'
-import classes from './informationPosts.module.scss'
+import classes from './postsThemes.module.scss'
 
 
-export default function InformationPostsPage(){
+export default function PostsThemesPage(){
 
 
     return (
-        <LayoutPages title='Списки рассылок'>
+        <LayoutPages title='Темы постов'>
             <section className={classes.container}>
                 <ListsWidget />
             </section>
