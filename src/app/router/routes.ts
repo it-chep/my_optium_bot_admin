@@ -36,3 +36,13 @@ export const LISTS_ROUTE: IRoute = {
     name: 'Списки рассылок',
     path: '/lists'
 }
+
+export const LIST_CREATE_ROUTE: IRoute = {
+    name: 'Создание списка рассылок',
+    path: '/list/create'
+}
+
+export const LIST_UPDATE_ROUTE: IRoute = {
+    name: 'Редактирование списка рассылок',
+    path: '/list/update'
+}

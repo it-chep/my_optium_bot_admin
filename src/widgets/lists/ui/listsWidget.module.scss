@@ -10,4 +10,20 @@
         width: 100%;
         height: 400px;
     }
+
+    .list{
+        display: flex;
+        flex-direction: column;
+
+        .create{
+            display: flex;
+            padding: 20px 40px;
+            border-bottom: 1px solid #eaeaea;
+
+            .button{
+                width: 200px;
+                margin-left: auto;
+            }
+        }
+    }
 }

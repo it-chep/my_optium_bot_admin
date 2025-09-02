@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import classes from './newslettersWidget.module.scss'
 import { LoaderSpinner } from "../../../shared/ui/spinner";
-import { INewsletter, NewsletterItem, newslettersService } from "../../../entities/newsletters";
+import { INewsletter, NewsletterItem, newslettersService, useNewsletterActions } from "../../../entities/newsletters";
 import { NewsletterActions } from "../../../features/newsletterActions";
 import { MyButton } from "../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ export const NewslettersWidget: FC = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setInitialState} = useNewsletterActions()
 
     const [newsletters, setNewsletters] = useState<INewsletter[]>([])
 
@@ -36,6 +37,7 @@ export const NewslettersWidget: FC = () => {
 
     useEffect(() => {
         getData()
+        setInitialState()
     }, [])
 
 
