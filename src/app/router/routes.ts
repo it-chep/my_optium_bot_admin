@@ -46,3 +46,18 @@ export const LIST_UPDATE_ROUTE: IRoute = {
     name: 'Редактирование списка рассылок',
     path: '/list/update'
 }
+
+export const INFORMATION_POSTS_ROUTE: IRoute = {
+    name: 'Информационные посты',
+    path: '/information_posts'
+}
+
+export const INFORMATION_POST_CREATE_ROUTE: IRoute = {
+    name: 'Создание информационного поста',
+    path: '/information_post/create'
+}
+
+export const INFORMATION_POST_UPDATE_ROUTE: IRoute = {
+    name: 'Обновление информационного поста',
+    path: '/information_post/update'
+}

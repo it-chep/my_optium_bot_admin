@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { HOME_ROUTE, LIST_CREATE_ROUTE, LIST_UPDATE_ROUTE, LISTS_ROUTE, LOGIN_ROUTE, NEWSLETTER_CREATE_ROUTE, NEWSLETTER_UPDATE_ROUTE, NEWSLETTERS_ROUTE, USERS_ROUTE } from "./routes";
+import { HOME_ROUTE, INFORMATION_POST_CREATE_ROUTE, INFORMATION_POST_UPDATE_ROUTE, INFORMATION_POSTS_ROUTE, LIST_CREATE_ROUTE, LIST_UPDATE_ROUTE, LISTS_ROUTE, LOGIN_ROUTE, NEWSLETTER_CREATE_ROUTE, NEWSLETTER_UPDATE_ROUTE, NEWSLETTERS_ROUTE, USERS_ROUTE } from "./routes";
 import App from "../../App";
 import AuthPage from "../../pages/auth/AuthPage";
 import HomePage from "../../pages/home/HomePage";
@@ -53,7 +53,19 @@ const Router: RouteObject[] = [
             {
                 path: LIST_UPDATE_ROUTE.path,
                 Component: ListChangePage
-            }
+            },
+            {
+                path: INFORMATION_POSTS_ROUTE.path,
+                Component: ListChangePage
+            },
+            // {
+            //     path: INFORMATION_POST_CREATE_ROUTE.path,
+            //     Component: ListChangePage
+            // },
+            // {
+            //     path: INFORMATION_POST_UPDATE_ROUTE.path,
+            //     Component: ListChangePage
+            // },
         ]
     }
 ]
