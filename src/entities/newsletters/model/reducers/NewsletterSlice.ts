@@ -16,6 +16,9 @@ export const NewsletterSlice = createSlice({
         setNewsletter(state, action: PayloadAction<INewsletterData>){
             state.newsletterData = action.payload;
         },
+        setInitialState(state, action: PayloadAction<void>){
+            state.newsletterData = NewsletterDataInitialState.newsletterData;
+        },
         setName(state, action: PayloadAction<string>){
             state.newsletterData.name = action.payload;
         },
