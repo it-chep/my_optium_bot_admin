@@ -31,7 +31,7 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
                 await listService.create(list.name)
             }
             else{
-                await listService.create(list.name)
+                await listService.update(list.id, list.name)
             }
             router(LISTS_ROUTE.path)
         }

@@ -9,7 +9,6 @@ import { IInformationPost, InformationPostItem, informationPostService, useInfor
 import { Features } from "../features/Features";
 
 
-
 export const InformationPostsWidget: FC = () => {
 
     const router = useNavigate()
@@ -21,14 +20,9 @@ export const InformationPostsWidget: FC = () => {
 
     const {setInitialState} = useInformationPostActions()
 
-    const onDelete = async (id: number) => {
-        await informationPostService.delete(id)
-    }
-
     const getData = async () => {
         try{
             setIsLoading(true)
-            await new Promise(resolve => setTimeout(resolve, 1000))
             const postsRes = await informationPostService.getAll()
             setInfPosts(postsRes)
         }

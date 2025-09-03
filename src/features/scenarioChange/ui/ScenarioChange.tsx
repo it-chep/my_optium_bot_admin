@@ -22,9 +22,7 @@ export const ScenarioChange: FC = () => {
     const setData = async () => {
         try{
             setIsLoading(true)
-           
             await scenarioService.update(scenario.id, scenario.delay)
-
             setGlobalMessage({message: 'Периодичность сценария обновлена', type: 'ok'})
             router(SCENARIO_MESSAGES_ROUTE.path)
         }

@@ -6,6 +6,7 @@ import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { INewsletter, newslettersService } from "../../../../entities/newsletters";
 import sendImg from '../../../../shared/lib/assets/send.png'
 import classes from '../newsletterActions.module.scss'
+import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 
 interface IProps {
     id: number;
@@ -16,22 +17,22 @@ interface IProps {
 export const Send: FC<IProps> = ({id, onChangeStatusId}) => {
     
     const [open, setOpen] = useState<boolean>(false)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsLoading} = useGlobalLoadingActions()
 
     const onSend = async () => {
         try{
             setIsLoading(true)
+            setOpen(false)
             await newslettersService.send(id)
             onChangeStatusId()
-            setGlobalMessage({message: 'Рассылка успешно отправлена', type: 'ok'})
+            setGlobalMessage({message: 'Рассылка успешно отправлена. Обновите страницу через какое-то время для получения актуальных данных', type: 'ok'})
         }
         catch(e){
             console.log(e)
             setGlobalMessage({message: 'Ошибка при отправлении рассылки', type: 'error'})
         }
         finally{
-            setOpen(false)
             setIsLoading(false)
         }
     }
@@ -46,7 +47,6 @@ export const Send: FC<IProps> = ({id, onChangeStatusId}) => {
         <Modal setOpen={setOpen} open={open}>
             <ConfirmationAction 
                 onClick={onSend}
-                isLoading={isLoading}
                 setOpen={setOpen}
                 title="Точно хотите отправить рассылку ?"
                 type="send"

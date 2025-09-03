@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useAppSelector } from "../../../../app/store/store";
-import { NEWSLETTERS_ROUTE } from "../../../../app/router/routes";
+import { INFORMATION_POSTS_ROUTE, NEWSLETTERS_ROUTE } from "../../../../app/router/routes";
 import { MyButton } from "../../../../shared/ui/button";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import classes from './action.module.scss'
@@ -31,7 +31,7 @@ export const Action: FC<IProps> = ({isCreate}) => {
                 await informationPostService.update(informationPost)
             }
             setGlobalMessage({message: 'Информационный пост ' + (isCreate ? 'создан' : 'обновлен'), type: 'ok'})
-            router(NEWSLETTERS_ROUTE.path)
+            router(INFORMATION_POSTS_ROUTE.path)
         }
         catch(e){
             console.log(e)

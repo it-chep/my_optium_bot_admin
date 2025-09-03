@@ -23,9 +23,7 @@ export const ScenarioMessagesChange: FC = () => {
     const setData = async () => {
         try{
             setIsLoading(true)
-           
             await scenarioService.updateStep(scenarioStepData.id, scenarioStepData.text)
-
             setGlobalMessage({message: 'Текст сообщения сценария обновлено', type: 'ok'})
             router(SCENARIO_MESSAGES_ROUTE.path)
         }

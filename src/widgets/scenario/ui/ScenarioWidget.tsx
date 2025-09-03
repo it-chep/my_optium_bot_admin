@@ -18,7 +18,6 @@ export const ScenarioWidget: FC = () => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            await new Promise(resolve => setTimeout(resolve, 1000))
             const scenariosRes = await scenarioService.getScenarios()
             setScenarios(scenariosRes)
         }

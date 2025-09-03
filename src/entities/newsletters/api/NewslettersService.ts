@@ -11,29 +11,21 @@ class NewslettersService{
     }
 
     async delete(id: number){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/', {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters/' + id, {
             method: "DELETE"
         })
     }
 
     async send(id: number){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}/send_letter/`, {
-        //     method: "POST"
-        // })
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}/send_letter`, {
+            method: "POST"
+        })
     }
 
     async get(id: number): Promise<INewsletterData> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}/send_letter/`)
-        // const data = await res.json()
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        return {
-            id: 11,
-            name: '123',
-            text: "aaaaaaa",
-            content_type_id: 2,
-            users_lists: [1, 3],
-            media_id: '',
-        }
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}`)
+        const {data}: {data: INewsletterData} = await res.json()
+        return data
     }
 
     async getRecepientsCount(list_ids: number[]): Promise<number> {
@@ -41,86 +33,46 @@ class NewslettersService{
             this.controller.abort()
         }
         this.controller = new AbortController()
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/recepients_count/`, {
-        //     method: "POST",
-        //     body: JSON.stringify({list_ids}),
-        //     signal: this.controller.signal
-        // })
-        // const {counts}: {counts: number} = await res.json()
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/recepients_count`, {
+            method: "POST",
+            body: JSON.stringify({list_ids}),
+            signal: this.controller.signal
+        })
+        const {counts}: {counts: number} = await res.json()
         this.controller = null;
-        return 22
+        return counts
     }
 
     async sendTest(id: number){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}/send_test_letter/`, {
-        //     method: "POST"
-        // })
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}/send_test_letter`, {
+            method: "POST"
+        })
     }
 
     async getContentTypes(): Promise<IItem[]> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/content_types`)
-        // const {content_types}: {content_types: IItem[]} = await res.json()
-
-        return [
-            {
-                id: 1,
-                name: 'фото'
-            },
-            {
-                id: 2,
-                name: 'видео'
-            }
-        ]
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/content_types`)
+        const {content_types}: {content_types: IItem[]} = await res.json()
+        return content_types
     }
 
     async create(newsletter: INewsletterData){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/`, {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters`, {
             method: "POST",
             body: JSON.stringify(newsletter)
         })
     }
 
     async update(newsletter: INewsletterData){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/`, {
-        //     method: "POST",
-        //     body: JSON.stringify(newsletter)
-        // })
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/` + newsletter.id, {
+            method: "POST",
+            body: JSON.stringify(newsletter)
+        })
     }
 
     async getAll(): Promise<INewsletter[]> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters/')
-        // const {newsletters}: {newsletters: INewsletter[]} = await res.json() 
-
-        return [
-            {
-                "id": 1,
-                "name": "Первая",
-                "status_id": 1,
-                "status_name": "Черновик",
-                "users_count": 123
-            },
-            {
-                "id": 2,
-                "name": "Вторая",
-                "status_id": 2,
-                "status_name": "Отправляется",
-                "users_count": 12
-            },
-            {
-                "id": 3,
-                "name": "тест",
-                "status_id": 3,
-                "status_name": "Отправлена",
-                "users_count": 2
-            },
-            {
-                "id": 4,
-                "name": "Пример рассылки",
-                "status_id": 1,
-                "status_name": "Черновик",
-                "users_count": 2
-            }
-        ]
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters')
+        const {newsletters}: {newsletters: INewsletter[]} = await res.json() 
+        return newsletters
     }
 
 }

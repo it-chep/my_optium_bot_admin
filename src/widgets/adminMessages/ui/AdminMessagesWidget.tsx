@@ -25,7 +25,6 @@ export const AdminMessagesWidget: FC = () => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            await new Promise(resolve => setTimeout(resolve, 1000))
             const listsRes = await adminMessageService.getAll()
             setMessages(listsRes)
         }

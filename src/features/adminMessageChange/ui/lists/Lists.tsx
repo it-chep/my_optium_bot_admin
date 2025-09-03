@@ -5,8 +5,8 @@ import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import arrow from '../../../../shared/lib/assets/arrowDown.png'
 import { IItem } from "../../../../shared/model/types";
-import { adminMessageService } from "../../../../entities/adminMessage";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
+import { scenarioService } from "../../../../entities/scenario";
 
 interface IProps {
     type: 'scenarios' | 'typeMessage';
@@ -28,7 +28,7 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
     const getData = async () => {
         try {
             setIsLoading(true)
-            const itemsRes = await adminMessageService.getScenarios()
+            const itemsRes = await scenarioService.getScenarios()
             setItems(itemsRes)   
         }
         catch(e){

@@ -47,6 +47,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
         catch(e){
             console.log(e)
             setGlobalMessage({message: 'Ошибка при получении информации о пользователе', type: 'error'})
+            setCurrentUser(null)
         }
         finally{
             setIsLoading(false)

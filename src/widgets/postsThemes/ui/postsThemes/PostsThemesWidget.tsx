@@ -4,11 +4,9 @@ import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import classes from './postsThemesWidget.module.scss'
 import { MyButton } from "../../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
-import { LIST_CREATE_ROUTE, POST_THEME_CREATE_ROUTE } from "../../../../app/router/routes";
-import { DeleteAction } from "../../../../features/deleteAction";
+import { POST_THEME_CREATE_ROUTE } from "../../../../app/router/routes";
 import { IPost, PostItem, postService, usePostActions } from "../../../../entities/post";
 import { Features } from "../features/Features";
-
 
 
 export const PostsThemesWidget: FC = () => {
@@ -20,14 +18,9 @@ export const PostsThemesWidget: FC = () => {
     const {setInitialState} = usePostActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
-    const onDelete = async (id: number) => {
-        await postService.delete(id)
-    }
-
     const getData = async () => {
         try{
             setIsLoading(true)
-            await new Promise(resolve => setTimeout(resolve, 1000))
             const listsRes = await postService.getAll()
             setPosts(listsRes)
         }

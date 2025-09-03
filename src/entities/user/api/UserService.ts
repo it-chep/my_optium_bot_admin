@@ -6,142 +6,15 @@ import { IUser, IUserData } from "../model/types"
 class UserService{
 
     async getUsers(): Promise<IUser[]> {
-
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/')
-
-        // await new Promise(resolve => setTimeout(resolve, 3000))
-
-        // const {users}: {users: IUser[]} = await res.json()
-
-        return [
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            {
-                "id": 1,
-                "name": "Нечепорук Максивввввм Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            
-        ]
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/')
+        const {users}: {users: IUser[]} = await res.json()
+        return users
     }
 
     async getUser(id: number): Promise<IUserData> {
-
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + id)
-
-        // await new Promise(resolve => setTimeout(resolve, 3000))
-
-        // const {users}: {users: IUser[]} = await res.json()
-
-        return {
-            "user": {
-                "id": 1,
-                "name": "Нечепорук Максим Алексеевич",
-                "sex": "М",
-                "tg_id": 123,
-                "metrics_link": "https://music.yandex.ru/album/37514534",
-                "birthday": "2004-05-11"
-            },
-            "lists": [
-                {
-                "id": 2,
-                "name": "Лаг 2"
-                },
-                {
-                "id": 3,
-                "name": "Новички"
-                }
-            ],
-            "posts": [
-                {
-                    "id": 2,
-                    "name": "234",
-                    "is_required_theme": true
-                }
-            ],
-            "scenarios": []
-        }
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + id)
+        const {user}: {user: IUserData} = await res.json()
+        return user
     }
         
     async deleteUserList(userId: number, listId: number){

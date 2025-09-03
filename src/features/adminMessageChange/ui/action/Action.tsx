@@ -21,9 +21,7 @@ export const Action: FC<IProps> = ({adminMessage}) => {
     const setData = async () => {
         try{
             setIsLoading(true)
-           
             await adminMessageService.create(adminMessage)
-
             setGlobalMessage({message: 'Админское сообщение создано', type: 'ok'})
             router(ADMIN_MESSAGES_ROUTE.path)
         }
