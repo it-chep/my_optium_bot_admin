@@ -84,3 +84,14 @@ export const ADMIN_MESSAGE_CREATE_ROUTE: IRoute = {
     name: 'Создание текста админского сообщения',
     path: '/admin_message/create'
 }
+
+
+export const SCENARIO_MESSAGES_ROUTE: IRoute = {
+    name: 'Тексты сообщений сценариев',
+    path: '/scenario_messages'
+}
+
+export const SCENARIO_MESSAGE_UPDATE_ROUTE: IRoute = {
+    name: 'Изменить текст сценария',
+    path: '/scenario_message/update'
+}

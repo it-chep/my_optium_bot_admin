@@ -1,14 +1,17 @@
+
+
+
 import { FC, PropsWithChildren } from "react";
-import classes from './adminMessageItem.module.scss'
+import classes from './scenarioStepItem.module.scss'
 import { Sign } from "../../../../shared/ui/sign";
-import { IAdminMessage } from "../../model/types";
+import { IScenarioStep } from "../../model/types";
 
 
 interface IProps{
-    adminMessage: IAdminMessage;
+    scenarioStep: IScenarioStep;
 }
 
-export const AdminMessageItem: FC<IProps & PropsWithChildren> = ({adminMessage, children}) => {
+export const ScenarioStepItem: FC<IProps & PropsWithChildren> = ({scenarioStep, children}) => {
 
 
     return (
@@ -16,22 +19,17 @@ export const AdminMessageItem: FC<IProps & PropsWithChildren> = ({adminMessage, 
             <section className={classes.data}>
                 <section className={classes.sign}>
                     <Sign sign="Название сценария">
-                        {adminMessage.scenario_name}
+                        {scenarioStep.scenario_name}
                     </Sign>
                 </section>
                 <section className={classes.sign}>
                     <Sign sign="Номер шага">
-                        NOOOOOOOOO
-                    </Sign>
-                </section>
-                <section className={classes.sign}>
-                    <Sign sign="Тип сообщения">
-                        {adminMessage.type_name}
+                        {scenarioStep.step_order}
                     </Sign>
                 </section>
                 <section className={classes.sign}>
                     <Sign sign="Текст сообщения">
-                        {adminMessage.text.slice(0, 40)}...
+                        {scenarioStep.text.slice(0, 50)}...
                     </Sign>
                 </section>
             </section>
