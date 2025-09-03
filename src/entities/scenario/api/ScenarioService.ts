@@ -5,9 +5,16 @@ import { IScenario, IScenarioStep } from "../model/types"
 class ScenarioService {
 
     async updateStep(id: number, message: string){
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/steps/' + id, {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/steps/' + id, {
             method: "POST",
             body: JSON.stringify({message})
+        })
+    }
+
+    async update(id: number, delay: string){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/scenarios/' + id, {
+            method: "POST",
+            body: JSON.stringify({delay})
         })
     }
         
@@ -19,57 +26,57 @@ class ScenarioService {
           {
       "id": 3,
       "name": "",
-      "delay": 0
+      "delay": "1s"
     },
     {
       "id": 4,
       "name": "Терапия",
-      "delay": 0
+      "delay": "0s"
     },
     {
       "id": 5,
       "name": "Обучение",
-      "delay": 0
+      "delay": "23s"
     },
     {
       "id": 6,
       "name": "Рекомендации",
-      "delay": 0
+      "delay": "4m"
     },
     {
       "id": 7,
       "name": "",
-      "delay": 0
+      "delay": "12s"
     },
     {
       "id": 8,
       "name": "Информация",
-      "delay": 0
+      "delay": "3s"
     },
     {
       "id": 9,
       "name": "Потеряшка",
-      "delay": 0
+      "delay": "1 second, 1 minute, 1 hour"
     },
     {
       "id": 10,
       "name": "Выведение на контроль",
-      "delay": 0
+      "delay": "1s"
     },
     {
       "id": 11,
       "name": "",
-      "delay": 0
+      "delay": "1s"
     },
     {
       "id": 1,
       "name": "Инит бота",
-      "delay": 10000000000
+      "delay": "10000000000s"
     },
     {
       "id": 2,
       "name": "Метрики",
-      "delay": 10000000000
+      "delay": "10000000000s"
     }
         ]
     }

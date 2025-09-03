@@ -20,6 +20,7 @@ import AdminMessagesCreatePage from "../../pages/adminMessagesCreate/AdminMessag
 import ScenarioMessagesPage from "../../pages/scenarioMessages/ScenarioMessages";
 import ScenarioMessagesUpdatePage from "../../pages/scenarioMessagesUpdate/ScenarioMessagesUpdate";
 import ScenarioPage from "../../pages/scenario/Scenario";
+import ScenarioUpdatePage from "../../pages/scenarioUpdate/ScenarioUpdate";
 
 
 
@@ -109,10 +110,10 @@ const Router: RouteObject[] = [
                 path: SCENARIO_ROUTE.path,
                 Component: ScenarioPage
             },
-            // {
-            //     path: SCENARIO_UPDATE_ROUTE.path,
-            //     // Component: Scena
-            // }
+            {
+                path: SCENARIO_UPDATE_ROUTE.path,
+                Component: ScenarioUpdatePage
+            }
         ]
     }
 ]

@@ -7,7 +7,7 @@ export const ScenarioSlice = createSlice({
     name: 'scenario',
     initialState: ScenarioInitialState,
     reducers: {
-        setDelay(state, action: PayloadAction<number>){
+        setDelay(state, action: PayloadAction<string>){
             state.scenario.delay = action.payload;
         },
         setScenario(state, action: PayloadAction<IScenario>){

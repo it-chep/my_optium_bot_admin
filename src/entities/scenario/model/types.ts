@@ -4,7 +4,7 @@
 export interface IScenario {
     id: number;
     name: string;
-    delay: number;
+    delay: string;
 }
 
 export interface IScenarioInitialState {

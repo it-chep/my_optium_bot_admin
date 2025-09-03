@@ -15,7 +15,7 @@ export const ScenarioInitialState: IScenarioInitialState = {
     scenario: {
         id: -1,
         name: '',
-        delay: 0,
+        delay: '',
     },
     isLoading: false,
     error: '',
