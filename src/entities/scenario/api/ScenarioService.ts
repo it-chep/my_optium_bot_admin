@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IScenarioStep } from "../model/types"
+import { IScenario, IScenarioStep } from "../model/types"
 
 
 class ScenarioService {
@@ -11,6 +11,68 @@ class ScenarioService {
         })
     }
         
+    async getScenarios(){
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/scenarios')
+        // const {scenarios}: {scenarios: IScenario[]} = await res.json()
+
+        return [
+          {
+      "id": 3,
+      "name": "",
+      "delay": 0
+    },
+    {
+      "id": 4,
+      "name": "Терапия",
+      "delay": 0
+    },
+    {
+      "id": 5,
+      "name": "Обучение",
+      "delay": 0
+    },
+    {
+      "id": 6,
+      "name": "Рекомендации",
+      "delay": 0
+    },
+    {
+      "id": 7,
+      "name": "",
+      "delay": 0
+    },
+    {
+      "id": 8,
+      "name": "Информация",
+      "delay": 0
+    },
+    {
+      "id": 9,
+      "name": "Потеряшка",
+      "delay": 0
+    },
+    {
+      "id": 10,
+      "name": "Выведение на контроль",
+      "delay": 0
+    },
+    {
+      "id": 11,
+      "name": "",
+      "delay": 0
+    },
+    {
+      "id": 1,
+      "name": "Инит бота",
+      "delay": 10000000000
+    },
+    {
+      "id": 2,
+      "name": "Метрики",
+      "delay": 10000000000
+    }
+        ]
+    }
         
     async getSteps(): Promise<IScenarioStep[]>{
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/steps')

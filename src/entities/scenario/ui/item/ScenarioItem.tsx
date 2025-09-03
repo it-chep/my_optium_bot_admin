@@ -1,13 +1,13 @@
 import { FC, PropsWithChildren } from "react";
-import classes from './scenarioStepItem.module.scss'
+import classes from './scenarioItem.module.scss'
 import { Sign } from "../../../../shared/ui/sign";
-import { IScenarioStep } from "../../model/types";
+import { IScenario } from "../../model/types";
 
 interface IProps{
-    scenarioStep: IScenarioStep;
+    scenario: IScenario;
 }
 
-export const ScenarioStepItem: FC<IProps & PropsWithChildren> = ({scenarioStep, children}) => {
+export const ScenarioItem: FC<IProps & PropsWithChildren> = ({scenario, children}) => {
 
 
     return (
@@ -15,17 +15,12 @@ export const ScenarioStepItem: FC<IProps & PropsWithChildren> = ({scenarioStep, 
             <section className={classes.data}>
                 <section className={classes.sign}>
                     <Sign sign="Название сценария">
-                        {scenarioStep.scenario_name}
+                        {scenario.name}
                     </Sign>
                 </section>
                 <section className={classes.sign}>
-                    <Sign sign="Номер шага">
-                        {scenarioStep.step_order}
-                    </Sign>
-                </section>
-                <section className={classes.sign}>
-                    <Sign sign="Текст сообщения">
-                        {scenarioStep.text.slice(0, 50)}...
+                    <Sign sign="Текущая периодичность">
+                        {scenario.delay}
                     </Sign>
                 </section>
             </section>

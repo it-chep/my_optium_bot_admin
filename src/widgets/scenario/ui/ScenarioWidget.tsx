@@ -1,31 +1,30 @@
 import { FC, useEffect, useState } from "react";
-import classes from './scenarioMessagesWidget.module.scss'
+import classes from './scenarioWidget.module.scss'
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
-import { scenarioService, ScenarioStepItem, useScenarioStepDataActions } from "../../../entities/scenario";
+import { IScenario, ScenarioItem, scenarioService, useScenarioActions } from "../../../entities/scenario";
+import { SCENARIO_UPDATE_ROUTE } from "../../../app/router/routes";
 import { EditAction } from "../../../features/editAction";
-import { IScenarioStep } from "../../../entities/scenario/model/types";
-import { SCENARIO_MESSAGE_UPDATE_ROUTE } from "../../../app/router/routes";
 
 
-export const ScenarioMessagesWidget: FC = () => {
+export const ScenarioWidget: FC = () => {
 
-    const [steps, setSteps] = useState<IScenarioStep[]>([])
+    const [scenarios, setScenarios] = useState<IScenario[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setGlobalMessage} = useGlobalMessageActions()
 
-    const {setScenarioStepData} = useScenarioStepDataActions()
+    const {setScenario} = useScenarioActions()
 
     const getData = async () => {
         try{
             setIsLoading(true)
             await new Promise(resolve => setTimeout(resolve, 1000))
-            const messagesRes = await scenarioService.getSteps()
-            setSteps(messagesRes)
+            const scenariosRes = await scenarioService.getScenarios()
+            setScenarios(scenariosRes)
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка текстов сообщений сценариев', type: 'error'})
+            setGlobalMessage({message: 'Ошибка при получении списка сценариев', type: 'error'})
         }
         finally{
             setIsLoading(false)
@@ -36,8 +35,8 @@ export const ScenarioMessagesWidget: FC = () => {
         getData()
     }, [])
 
-    const onEdit = (step: IScenarioStep) => {
-        setScenarioStepData(step)
+    const onEdit = (scenario: IScenario) => {
+        setScenario(scenario)
     }
 
     return (
@@ -48,13 +47,13 @@ export const ScenarioMessagesWidget: FC = () => {
                 <section className={classes.loader}><LoaderSpinner /></section>
                     :
                 <ul className={classes.step}>
-                    {steps.map(step => 
-                        <ScenarioStepItem key={step.id} scenarioStep={step}>
+                    {scenarios.map(scenario => 
+                        <ScenarioItem key={scenario.id} scenario={scenario}>
                             <EditAction
-                                toPath={SCENARIO_MESSAGE_UPDATE_ROUTE.path}
-                                onEdit={() => onEdit(step)}
+                                toPath={SCENARIO_UPDATE_ROUTE.path}
+                                onEdit={() => onEdit(scenario)}
                             />
-                        </ScenarioStepItem>
+                        </ScenarioItem>
                     )}
                 </ul>
             }

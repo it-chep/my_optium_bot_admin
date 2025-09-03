@@ -1,0 +1,23 @@
+.item{
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    padding: 16px 24px;
+    align-items: center;
+    justify-content: space-between;
+
+    
+    .data{
+        display: flex;
+        align-items: center;
+        gap: 40px;
+
+        .sign{
+            width: 300px;
+            img{
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+            }
+        }
+    }
+}

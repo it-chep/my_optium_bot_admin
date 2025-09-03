@@ -7,6 +7,12 @@ export interface IScenario {
     delay: number;
 }
 
+export interface IScenarioInitialState {
+    scenario: IScenario;
+    error: string;
+    isLoading: boolean;
+}
+
 export interface IScenarioStep {
     id: number;
     scenario_name: string;

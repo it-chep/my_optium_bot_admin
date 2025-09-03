@@ -7,7 +7,7 @@ import {newsletterReducer} from "../../entities/newsletters"
 import {listReducer} from "../../entities/list"
 import { postReducer } from "../../entities/post";
 import { informationPostReducer } from "../../entities/informationPost";
-import { scenarioStepReducer } from "../../entities/scenario";
+import { scenarioReducer, scenarioStepReducer } from "../../entities/scenario";
 
 const store = configureStore({
     reducer: {
@@ -19,6 +19,7 @@ const store = configureStore({
         postReducer,
         informationPostReducer,
         scenarioStepReducer,
+        scenarioReducer,
         
     }
 })

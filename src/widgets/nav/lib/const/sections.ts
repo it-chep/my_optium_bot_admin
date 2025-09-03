@@ -1,4 +1,4 @@
-import { ADMIN_MESSAGES_ROUTE, INFORMATION_POSTS_ROUTE, LISTS_ROUTE, NEWSLETTERS_ROUTE, POSTS_THEMES_ROUTE, SCENARIO_MESSAGES_ROUTE, USERS_ROUTE } from "../../../../app/router/routes";
+import { ADMIN_MESSAGES_ROUTE, INFORMATION_POSTS_ROUTE, LISTS_ROUTE, NEWSLETTERS_ROUTE, POSTS_THEMES_ROUTE, SCENARIO_MESSAGES_ROUTE, SCENARIO_ROUTE, USERS_ROUTE } from "../../../../app/router/routes";
 import { ISection } from "../../model/types";
 
 
@@ -50,6 +50,10 @@ export const sections: ISection[] = [
             {
                 title: SCENARIO_MESSAGES_ROUTE.name,
                 link: SCENARIO_MESSAGES_ROUTE.path
+            },
+            {
+                title: SCENARIO_ROUTE.name,
+                link: SCENARIO_ROUTE.path
             }
         ]
     }

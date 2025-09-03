@@ -95,3 +95,13 @@ export const SCENARIO_MESSAGE_UPDATE_ROUTE: IRoute = {
     name: 'Изменить текст сценария',
     path: '/scenario_message/update'
 }
+
+export const SCENARIO_ROUTE: IRoute = {
+    name: 'Настройки периодичности сценариев',
+    path: '/scenario'
+}
+
+export const SCENARIO_UPDATE_ROUTE: IRoute = {
+    name: 'Изменить периодичность сценария',
+    path: '/scenario/update'
+}
