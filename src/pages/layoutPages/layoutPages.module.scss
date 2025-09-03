@@ -20,7 +20,8 @@
         display: flex;
 
         .aside{
-            width: 120px;
+            width: 140px;
+            min-width: 140px;
             background-color: var(--blue-light);
             border-right: 1px solid black;
         }

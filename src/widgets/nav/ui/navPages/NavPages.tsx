@@ -8,7 +8,7 @@ import classes from './navPages.module.scss'
 
 export const NavPages: FC = () => {
 
-    const links: ISection['sections'] = []
+    const links: ISection['sections'] = [{title: 'Главная', link: '/'}]
 
     sections.forEach(section => section.sections.forEach(s => links.push(s)))
 
