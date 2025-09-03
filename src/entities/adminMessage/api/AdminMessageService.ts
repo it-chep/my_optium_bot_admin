@@ -1,0 +1,28 @@
+import { fetchAuth } from "../../../shared/api/ApiService"
+import { ISection } from "../../../widgets/nav/model/types"
+import { IAdminMessage, IAdminMessageData } from "../model/types"
+
+
+class AdminMessageService{
+
+    async create(adminMessages: IAdminMessageData){
+       await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/', {
+            method: "POST",
+            body: JSON.stringify({...adminMessages})
+        })
+    }
+
+    async delete(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/' + id, {
+            method: "DELETE"
+        })
+    }
+
+    async getAll(): Promise<IAdminMessage[]>{
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages')
+        const {messages}: {messages: IAdminMessage[]} = await res.json()
+        return messages
+    }
+}
+
+export const adminMessageService = new AdminMessageService()

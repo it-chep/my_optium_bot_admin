@@ -1,0 +1,1 @@
+export { NewslettersWidget } from "./ui/NewslettersWidget";

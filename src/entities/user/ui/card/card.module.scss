@@ -1,0 +1,18 @@
+
+
+
+.list{
+    display: flex;
+    justify-content: space-evenly;   
+    border: 1px solid #eaeaea;
+    height: 100px;
+    
+    a{
+        color: var(--blue);
+        transition: all .15s ease;
+
+        &:hover{
+            color: var(--blue-hover);
+        }
+    }
+}

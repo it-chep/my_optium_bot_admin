@@ -1,0 +1,47 @@
+
+
+
+.list{
+    
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+
+    th{
+        height: 60px;   
+    }
+
+    td{
+        height: 100px;
+    }
+
+
+    td, th{
+        text-align: center;
+        padding: 12px;
+        border: 1px solid #eaeaea;
+        vertical-align: center; 
+
+        a{
+            color: var(--blue);
+            transition: all .15s ease;
+
+            &:hover{
+                color: var(--blue-hover);
+            }
+        }
+
+        &.fio{
+            width: 200px;
+            min-width: 200px;
+            font-weight: 600;
+        }
+
+
+        .button{
+            height: 44px;
+        }
+    }
+}

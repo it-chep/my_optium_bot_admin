@@ -1,3 +1,6 @@
+export { CardBadge } from "./ui/badge/cardBadge";
+
+export { UserCard } from "./ui/card/UserCard";
+export { UserList } from "./ui/userList/UserList";
 export { userService } from "./api/UserService";
-export { useUserActions } from "./lib/hooks/useUserActions";
-export {type IUser} from './model/types'
+export {type IUser, type IUserData} from './model/types'

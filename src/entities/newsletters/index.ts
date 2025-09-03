@@ -1,0 +1,5 @@
+export { useNewsletterActions } from './lib/hooks/useNewsletterActions'
+export { NewsletterItem } from './ui/item/NewsletterItem'
+export { newslettersService } from './api/NewslettersService'
+export {type INewsletter} from './model/types'
+export {default as newsletterReducer} from './model/reducers/NewsletterSlice'

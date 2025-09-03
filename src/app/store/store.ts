@@ -1,12 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import userReducer from "../../entities/user/model/reducers/UserSlice";
-
-
+import {myReducer} from "../../entities/my";
+import {globalMessageReducer} from "../../entities/globalMessage"
+import {globalLoadingReducer} from "../../entities/globalLoading"
+import {newsletterReducer} from "../../entities/newsletters"
+import {listReducer} from "../../entities/list"
+import { postReducer } from "../../entities/post";
+import { informationPostReducer } from "../../entities/informationPost";
+import { scenarioReducer, scenarioStepReducer } from "../../entities/scenario";
 
 const store = configureStore({
     reducer: {
-        userReducer,
+        myReducer,
+        globalMessageReducer,
+        globalLoadingReducer,
+        newsletterReducer,
+        listReducer,
+        postReducer,
+        informationPostReducer,
+        scenarioStepReducer,
+        scenarioReducer,
         
     }
 })

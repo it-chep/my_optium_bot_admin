@@ -1,0 +1,20 @@
+.container{
+    padding: 40px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    .sign{
+        display: flex;
+    }
+
+    .title{
+        margin-left: 4px;
+        margin-bottom: 4px;
+    }
+
+    .button{
+        width: 200px;
+    }
+}

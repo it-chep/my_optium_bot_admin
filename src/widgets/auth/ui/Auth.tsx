@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import classes from './auth.module.scss'
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/store/store";
-import { userService, useUserActions } from "../../../entities/user";
+import { myService, useMyActions } from "../../../entities/my";
 import { MyInput } from "../../../shared/ui/input";
 import { VisiblePassword } from "../../../features/visiblePassword";
 import { MyButton } from "../../../shared/ui/button";
@@ -12,8 +12,8 @@ export const Auth: FC = () => {
 
     const router = useNavigate()
 
-    const {user, isLoading, error} = useAppSelector(s => s.userReducer)
-    const {setEmail, setIsAuth, setIsLoading, setError} = useUserActions()
+    const {my, isLoading, error} = useAppSelector(s => s.myReducer)
+    const {setEmail, setIsAuth, setIsLoading, setError} = useMyActions()
 
     const [password, setPassword] = useState<string>('')
 
@@ -23,9 +23,7 @@ export const Auth: FC = () => {
             // await new Promise(resolve => setTimeout(resolve, 2000))
             // await userService.login(user.email, password)
             setIsAuth(true)
-            router('/', {
-                replace: true
-            })
+            router('/')
         }
         catch(e){
             setError('Пользователь не авторизован')
@@ -41,7 +39,7 @@ export const Auth: FC = () => {
             <h1 className={classes.title}>Вход</h1>
             <MyInput 
                 placeholder='Email' 
-                value={user.email} 
+                value={my.email} 
                 setValue={setEmail} 
                 type="email" 
                 isLoading={isLoading}

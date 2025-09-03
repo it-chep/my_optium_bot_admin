@@ -1,13 +1,26 @@
 
 
 
+
 export interface IUser {
-    email: string;
-    isAuth: boolean;
+    id: number;
+    name: string;
+    sex: "М" | "Ж";
+    tg_id: number;
+    metrics_link: string;
+    birthday: string;
 }
 
-export interface IUserInitialState {
+export interface IUserData {
     user: IUser;
-    isLoading: boolean;
-    error: string;
+    lists: {
+        id: number;
+        name: string;
+    }[];
+    posts: {
+        id: number;
+        name: string;
+        is_required_theme: boolean;
+    }[]
+    scenarios: []
 }

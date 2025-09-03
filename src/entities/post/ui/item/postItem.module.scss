@@ -1,0 +1,27 @@
+.item{
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    padding: 16px 40px;
+    align-items: center;
+    justify-content: space-between;
+
+    
+    .data{
+        display: flex;
+        align-items: center;
+        gap: 40px;
+
+        .sign{
+            width: 260px;
+
+            .name{
+                font-size: 20px;
+            }
+            img{
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+            }
+        }
+    }
+}

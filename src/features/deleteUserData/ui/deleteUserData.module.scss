@@ -1,0 +1,25 @@
+
+
+
+.delete{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    path{
+        stroke: var(--black);
+        transition: all .15s ease;
+    }
+    &:hover{
+        path{
+            stroke: var(--black-hover);
+        }
+    }
+
+    .loader{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+}

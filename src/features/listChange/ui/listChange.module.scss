@@ -1,0 +1,23 @@
+
+
+.container{
+    background-color: #FFF;
+    padding: 40px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 650px;
+
+    .loader{
+        display: flex;
+        height: 120px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .button{
+        width: 200px;
+    }
+}
