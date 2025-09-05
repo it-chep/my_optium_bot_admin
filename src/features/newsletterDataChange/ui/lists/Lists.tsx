@@ -1,6 +1,5 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './lists.module.scss'
-import { DropDownList } from "../../../../shared/ui/dropDown";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { listService } from "../../../../entities/list";
@@ -8,11 +7,11 @@ import { useAppSelector } from "../../../../app/store/store";
 import { newslettersService, useNewsletterActions } from "../../../../entities/newsletters";
 import arrow from '../../../../shared/lib/assets/arrowDown.png'
 import { IItem } from "../../../../shared/model/types";
+import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 
 interface IProps {
     type: 'lists' | 'fileType'
 }
-
 
 export const Lists: FC<IProps> = ({type}) => {
 
@@ -30,6 +29,7 @@ export const Lists: FC<IProps> = ({type}) => {
     const getData = async () => {
         try {
             setIsLoading(true)
+            // await new Promise(resolve => setTimeout(resolve, 5000))
             if(type === 'lists'){
                 const itemsRes = await listService.getAll()
                 setItems(itemsRes)   
@@ -83,33 +83,19 @@ export const Lists: FC<IProps> = ({type}) => {
         }
     }
 
+    useEffect(() => {
+        getData()
+    }, [])
+
     return (
         <section className={classes.container}>
-            <section 
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => setOpen(!open)} 
-                className={classes.button}
-            >
-                {
-                    type === "lists"
-                        ? 
-                    newsletterData.users_lists.length === 0 && 'не выбрано'
-                        :
-                    items.find(item => item.id === newsletterData.content_type_id)?.name || (newsletterData.content_type_id < 0 && 'не выбрано')
-                }
-                <img alt="Открыть" src={arrow} />
-            </section>
-            {
-                open
-                    &&
-                <DropDownList 
-                    onSelected={onSelected}
-                    getList={getData}
-                    isLoading={isLoading}
-                    items={items}
-                    selectedIdItems={type === "lists" ? newsletterData.users_lists : [newsletterData.content_type_id]}
-                />
-            }
+            <DropDownListSelected 
+                onSelected={onSelected}
+                getList={getData}
+                isLoading={isLoading}
+                items={items}
+                selectedIdItems={type === "lists" ? newsletterData.users_lists : [newsletterData.content_type_id]}                
+            />
         </section>
     )
 }
