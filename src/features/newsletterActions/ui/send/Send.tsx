@@ -26,7 +26,7 @@ export const Send: FC<IProps> = ({id, onChangeStatusId}) => {
             setOpen(false)
             await newslettersService.send(id)
             onChangeStatusId()
-            setGlobalMessage({message: 'Рассылка успешно отправлена. Обновите страницу через какое-то время для получения актуальных данных', type: 'ok'})
+            setGlobalMessage({message: 'Рассылка успешно отправлена. Запущен процесс отправки рассылки', type: 'ok'})
         }
         catch(e){
             console.log(e)
