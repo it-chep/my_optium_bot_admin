@@ -31,3 +31,9 @@ export interface IScenarioStepDataInitialState {
     isLoading: boolean;
     error: string;
 }
+
+export interface IStepNumber {
+    id: number;
+    name: string;
+    step_order: number;
+}
