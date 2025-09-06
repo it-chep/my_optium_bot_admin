@@ -74,17 +74,7 @@ export const Lists: FC<IProps> = ({type}) => {
     
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
-            try{
-                setGlobalIsLoading(true)
-                setItem(item, selected)
-            }
-            catch(e){
-                console.log(e)
-                setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
-            }
-            finally{
-                setGlobalIsLoading(false)
-            }
+            setItem(item, selected)
         }
     }
 
