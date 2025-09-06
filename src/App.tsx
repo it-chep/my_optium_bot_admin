@@ -44,6 +44,12 @@ function App() {
       auth()
     }
   }, [])
+  
+  useEffect(() => {
+    if(!my.isAuth){
+      router(LOGIN_ROUTE.path)
+    }
+  }, [my.isAuth])
 
   return (
     <section className="main">
