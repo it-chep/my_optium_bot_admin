@@ -17,7 +17,7 @@ class MyService{
     }
     
     async check(): Promise<void>{
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/check-token')
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/check-token')
     }
 
 }

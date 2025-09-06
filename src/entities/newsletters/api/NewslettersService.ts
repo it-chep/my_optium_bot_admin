@@ -23,16 +23,9 @@ class NewslettersService{
     }
 
     async get(id: number): Promise<INewsletterData> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}`)
-        // const {data}: {data: INewsletterData} = await res.json()
-        return {
-            "id": 1,
-            "name": "Первая",
-            "text": 'aaaaaaaaa',
-            "users_lists": [1, 3],
-            "media_id": 'url...',
-            "content_type_id": 2
-        }
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}`)
+        const {data}: {data: INewsletterData} = await res.json()
+        return data
     }
 
     async getRecepientsCount(list_ids: number[]): Promise<number> {

@@ -6,76 +6,27 @@ import { IUser, IUserData } from "../model/types"
 class UserService{
 
     async getUsers(): Promise<IUser[]> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/')
-        // const {users}: {users: IUser[]} = await res.json()
-        return [
-            {
-      "id": 1,
-      "name": "Нечепорук Максим Алексеевич",
-      "sex": "М",
-      "tg_id": 123,
-      "metrics_link": "https://music.yandex.ru/album/37514534",
-      "birthday": "2004-05-11"
-    }
-        ]
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/')
+        const {users}: {users: IUser[]} = await res.json()
+        return users
     }
 
     async getUser(id: number): Promise<IUserData> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + id)
-        // const {user}: {user: IUserData} = await res.json()
-        return {
-            "user": {
-    "id": 1,
-    "name": "Нечепорук Максим Алексеевич",
-    "sex": "М",
-    "tg_id": 123,
-    "metrics_link": "https://music.yandex.ru/album/37514534",
-    "birthday": "2004-05-11"
-  },
-  "lists": [
-    {
-      "id": 2,
-      "name": "Лаг 2"
-    },
-    {
-      "id": 3,
-      "name": "Новички"
-    }
-  ],
-  "posts": [
-    {
-      "id": 2,
-      "name": "234",
-      "is_required_theme": true
-    }
-  ],
-  "scenarios": [{
-    id: 1,
-    name: 'aaaaa',
-    scheduled_time: '2006-01-02 15:04:05'
-  },
-  {
-    id: 2,
-    name: 'bbbb',
-    scheduled_time: '2006-01-33 15:04:05'
-  }
-  
-]
-        }
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + id)
+        const {user}: {user: IUserData} = await res.json()
+        return user
     }
         
     async deleteUserList(userId: number, listId: number){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/lists/' + listId, {
-        //     method: "DELETE"
-        // })
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/lists/' + listId, {
+            method: "DELETE"
+        })
     }
 
     async deleteUserPost(userId: number, postId: number){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/post/' + postId, {
-        //     method: "DELETE"
-        // })
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/post/' + postId, {
+            method: "DELETE"
+        })
     }
 
     async setList(userId: number, listId: number){
@@ -90,11 +41,10 @@ class UserService{
     }
 
     async setScenarioDatetime(userId: number, scheduled_time: string) {
-      //  await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/scheduled_time', {
-      //       method: "POST",
-      //       body: JSON.stringify({scheduled_time})
-      //   })
-      await new Promise(resolve => setTimeout(resolve, 4000))
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/scheduled_time', {
+            method: "POST",
+            body: JSON.stringify({scheduled_time})
+        })
     }
 }
 

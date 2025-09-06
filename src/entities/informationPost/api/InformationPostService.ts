@@ -25,17 +25,9 @@ class InformationPostService {
     }
 
     async get(id: number): Promise<IInformationPostData> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts/' + id)
-        // const {post}: {post: IInformationPostData} = await res.json()
-        return {
-          id: 12,
-          post_name: 'asd',
-          theme_id: 2,
-          order: 4,
-          message: 'esfdds',
-          media_id:'url...',
-          content_type_id: 2
-        }
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts/' + id)
+        const {post}: {post: IInformationPostData} = await res.json()
+        return post
     }
     
     async getAll(){
