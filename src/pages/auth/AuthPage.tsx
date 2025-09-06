@@ -2,17 +2,20 @@ import classes from './auth.module.scss'
 import { Auth } from '../../widgets/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/store/store';
+import { useEffect } from 'react';
 
 
 export default function AuthPage(){
+
     const router = useNavigate()
     const {my} = useAppSelector(s => s.myReducer) 
 
-    if(my.isAuth){
-        router('/')
-    }
+    useEffect(() => {
+        if(my.isAuth){
+            router('/')
+        }
+    }, [])
 
-    
     return (
         !my.isAuth
             ?
