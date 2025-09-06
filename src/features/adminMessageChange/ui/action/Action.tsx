@@ -7,6 +7,8 @@ import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
 import { adminMessageService } from "../../../../entities/adminMessage";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps{
     adminMessage: IAdminMessageData;
@@ -17,6 +19,7 @@ export const Action: FC<IProps> = ({adminMessage}) => {
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const router = useNavigate()
+    const {setIsAuth} = useMyActions()
 
     const setData = async () => {
         try{
@@ -27,7 +30,13 @@ export const Action: FC<IProps> = ({adminMessage}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошбика при создании админского сообщения', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошбика при создании админского сообщения', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

@@ -8,6 +8,8 @@ import { listService } from "../../../../entities/list";
 import { postService } from "../../../../entities/post";
 import { DropDownList } from "../../../../shared/ui/dropDown";
 import { IItem } from "../../../../shared/model/types";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     userItems: IItem[];
@@ -20,7 +22,7 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId}) => 
 
     const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
-
+    const {setIsAuth} = useMyActions()
     const {setIsLoading: setGlobalIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
@@ -40,7 +42,13 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId}) => 
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении данных', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении данных', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)
@@ -61,7 +69,13 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId}) => 
             }
             catch(e){
                 console.log(e)
-                setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
+                if(e instanceof AuthError){
+                    setIsAuth(false)
+                    setGlobalMessage({message: e.message, type: 'error'})
+                }
+                else{
+                    setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
+                }
             }
             finally{
                 setGlobalIsLoading(false)

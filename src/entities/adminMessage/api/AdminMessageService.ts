@@ -1,12 +1,11 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ISection } from "../../../widgets/nav/model/types"
 import { IAdminMessage, IAdminMessageData } from "../model/types"
 
 
 class AdminMessageService{
 
     async create(adminMessages: IAdminMessageData){
-       await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/', {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/', {
             method: "POST",
             body: JSON.stringify({...adminMessages})
         })

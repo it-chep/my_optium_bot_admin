@@ -7,6 +7,8 @@ import classes from './action.module.scss'
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { informationPostService } from "../../../../entities/informationPost";
 import { useNavigate } from "react-router-dom";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     isCreate: boolean;
@@ -18,6 +20,7 @@ export const Action: FC<IProps> = ({isCreate}) => {
 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsAuth} = useMyActions()
 
     const router = useNavigate()
 
@@ -35,7 +38,13 @@ export const Action: FC<IProps> = ({isCreate}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошбика при отправке данных о информационном посте', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошбика при отправке данных о информационном посте', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

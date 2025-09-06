@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { Sign } from "../../../shared/ui/sign";
 import { SCENARIO_MESSAGES_ROUTE } from "../../../app/router/routes";
 import { MyInput } from "../../../shared/ui/input";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 export const ScenarioChange: FC = () => {
 
@@ -17,6 +19,7 @@ export const ScenarioChange: FC = () => {
 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsAuth} = useMyActions()
     const router = useNavigate()
 
     const setData = async () => {
@@ -28,7 +31,13 @@ export const ScenarioChange: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при обновлении периодичности сценария', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при обновлении периодичности сценария', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

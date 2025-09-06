@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { INFORMATION_POST_CREATE_ROUTE } from "../../../../app/router/routes";
 import { IInformationPost, InformationPostItem, informationPostService, useInformationPostActions } from "../../../../entities/informationPost";
 import { Features } from "../features/Features";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 
 export const InformationPostsWidget: FC = () => {
@@ -17,7 +19,7 @@ export const InformationPostsWidget: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const {setGlobalMessage} = useGlobalMessageActions()
-
+    const {setIsAuth} = useMyActions()
     const {setInitialState} = useInformationPostActions()
 
     const getData = async () => {
@@ -28,7 +30,13 @@ export const InformationPostsWidget: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка информационных постов', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка информационных постов', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

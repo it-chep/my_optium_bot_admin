@@ -7,6 +7,8 @@ import { AdminMessageItem, adminMessageService, IAdminMessage } from "../../../e
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { MyButton } from "../../../shared/ui/button";
 import { ADMIN_MESSAGE_CREATE_ROUTE } from "../../../app/router/routes";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 
 
@@ -17,6 +19,7 @@ export const AdminMessagesWidget: FC = () => {
     const [messages, setMessages] = useState<IAdminMessage[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsAuth} = useMyActions()
 
     const onDelete = async (id: number) => {
         await adminMessageService.delete(id)
@@ -30,7 +33,13 @@ export const AdminMessagesWidget: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка текстов админских сообщений', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка текстов админских сообщений', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

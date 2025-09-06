@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { POSTS_THEMES_ROUTE } from "../../../app/router/routes";
 import { postService, usePostActions } from "../../../entities/post";
 import { MyCheckbox } from "../../../shared/ui/myCheckbox";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 interface IProps {
     isCreate: boolean;
@@ -21,7 +23,8 @@ export const PostThemeChange: FC<IProps> = ({isCreate}) => {
     const {setIsLoading} = useGlobalLoadingActions()
 
     const router = useNavigate()
-
+    
+    const {setIsAuth} = useMyActions()
     const {post} = useAppSelector(s => s.postReducer)
     const {setName, setIsRequired} = usePostActions()
 
@@ -38,7 +41,13 @@ export const PostThemeChange: FC<IProps> = ({isCreate}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: `Ошибка при ${isCreate? 'создании' : 'изменении'} темы поста`, type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: `Ошибка при ${isCreate? 'создании' : 'изменении'} темы поста`, type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

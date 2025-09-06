@@ -18,17 +18,15 @@ class UserService{
     }
         
     async deleteUserList(userId: number, listId: number){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/lists/' + listId, {
-        //     method: "DELETE"
-        // })
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/lists/' + listId, {
+            method: "DELETE"
+        })
     }
 
     async deleteUserPost(userId: number, postId: number){
-        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/post/' + postId, {
-        //     method: "DELETE"
-        // })
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/post/' + postId, {
+            method: "DELETE"
+        })
     }
 
     async setList(userId: number, listId: number){
@@ -39,6 +37,13 @@ class UserService{
     async setPost(userId: number, postId: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/post/' + postId, {
             method: "POST"
+        })
+    }
+
+    async setScenarioDatetime(userId: number, scheduled_time: string) {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/scheduled_time', {
+            method: "POST",
+            body: JSON.stringify({scheduled_time})
         })
     }
 }

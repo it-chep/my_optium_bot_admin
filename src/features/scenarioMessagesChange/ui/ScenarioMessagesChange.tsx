@@ -9,13 +9,15 @@ import { useNavigate } from "react-router-dom";
 import { Sign } from "../../../shared/ui/sign";
 import { SCENARIO_MESSAGES_ROUTE } from "../../../app/router/routes";
 import { MyTextarea } from "../../../shared/ui/textarea";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 export const ScenarioMessagesChange: FC = () => {
 
     const {scenarioStepData} = useAppSelector(s => s.scenarioStepReducer)
 
     const {setText} = useScenarioStepDataActions()
-
+    const {setIsAuth} = useMyActions()
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const router = useNavigate()
@@ -29,7 +31,13 @@ export const ScenarioMessagesChange: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при обновлении текста сообщения сценария', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при обновлении текста сообщения сценария', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

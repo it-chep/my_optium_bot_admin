@@ -4,6 +4,8 @@ import { IUser } from "../../../../entities/user/model/types";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { UserList, userService } from "../../../../entities/user";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     setCurrentUser: (currentUser: number) => void
@@ -14,6 +16,7 @@ export const UsersWidget: FC<IProps & PropsWithChildren> = ({setCurrentUser, chi
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [users, setUsers] = useState<IUser[]>([])
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsAuth} = useMyActions()
 
     const getData = async () => {
         try{
@@ -23,7 +26,13 @@ export const UsersWidget: FC<IProps & PropsWithChildren> = ({setCurrentUser, chi
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка пользователей', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка пользователей', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

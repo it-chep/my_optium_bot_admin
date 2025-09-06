@@ -5,9 +5,10 @@ import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { listService } from "../../../../entities/list";
 import { useAppSelector } from "../../../../app/store/store";
 import { newslettersService, useNewsletterActions } from "../../../../entities/newsletters";
-import arrow from '../../../../shared/lib/assets/arrowDown.png'
 import { IItem } from "../../../../shared/model/types";
 import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     type: 'lists' | 'fileType'
@@ -15,9 +16,8 @@ interface IProps {
 
 export const Lists: FC<IProps> = ({type}) => {
 
-    const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    
+    const {setIsAuth} = useMyActions()
     const {newsletterData} = useAppSelector(s => s.newsletterReducer)
     const {setUsersLists, setСontentTypeId} = useNewsletterActions()
 
@@ -29,7 +29,6 @@ export const Lists: FC<IProps> = ({type}) => {
     const getData = async () => {
         try {
             setIsLoading(true)
-            // await new Promise(resolve => setTimeout(resolve, 5000))
             if(type === 'lists'){
                 const itemsRes = await listService.getAll()
                 setItems(itemsRes)   
@@ -41,7 +40,13 @@ export const Lists: FC<IProps> = ({type}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении данных', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении данных', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)
@@ -69,17 +74,7 @@ export const Lists: FC<IProps> = ({type}) => {
     
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
-            try{
-                setGlobalIsLoading(true)
-                setItem(item, selected)
-            }
-            catch(e){
-                console.log(e)
-                setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
-            }
-            finally{
-                setGlobalIsLoading(false)
-            }
+            setItem(item, selected)
         }
     }
 
@@ -91,7 +86,6 @@ export const Lists: FC<IProps> = ({type}) => {
         <section className={classes.container}>
             <DropDownListSelected 
                 onSelected={onSelected}
-                getList={getData}
                 isLoading={isLoading}
                 items={items}
                 selectedIdItems={type === "lists" ? newsletterData.users_lists : [newsletterData.content_type_id]}                

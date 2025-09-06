@@ -1,5 +1,6 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IScenario, IScenarioStep } from "../model/types"
+import { IItem } from "../../../shared/model/types"
+import { IScenario, IScenarioStep, IStepNumber } from "../model/types"
 
 
 class ScenarioService {
@@ -18,7 +19,13 @@ class ScenarioService {
         })
     }
         
-    async getScenarios(){
+    async getStepsNumbers(scenarioId: number): Promise<IStepNumber[]> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/scenarios/' + scenarioId + 'steps')
+        const {steps}: {steps: IStepNumber[]} = await res.json()
+        return steps
+    }
+
+    async getScenarios(): Promise<IScenario[]>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/scenarios')
         const {scenarios}: {scenarios: IScenario[]} = await res.json()
         return scenarios

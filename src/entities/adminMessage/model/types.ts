@@ -13,7 +13,7 @@ export interface IAdminMessageData {
     scenario_id: number;
     type: number;
     message: string;
-    step_order: string;
+    step_order: number;
 }
 
 export interface scenario {

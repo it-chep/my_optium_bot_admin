@@ -26,12 +26,11 @@ function App() {
   const auth = async () => {
     try{
       setIsLoading(true)
-      // await userService.check()
-      // setIsAuth(true)
-      router(LOGIN_ROUTE.path)  // это в блок catch
+      await myService.check()
+      setIsAuth(true)
     } 
     catch(e){
-
+      router(LOGIN_ROUTE.path) 
       console.log(e)
     }
     finally{
@@ -44,6 +43,12 @@ function App() {
       auth()
     }
   }, [])
+  
+  useEffect(() => {
+    if(!my.isAuth){
+      router(LOGIN_ROUTE.path)
+    }
+  }, [my.isAuth])
 
   return (
     <section className="main">
@@ -56,9 +61,6 @@ function App() {
           <Outlet />
           { globalMessage.message && <GlobalMessage /> }
           { globalIsLoading && <GlobalLoading /> }
-          <footer>
-
-          </footer>
         </>
       }
     </section>

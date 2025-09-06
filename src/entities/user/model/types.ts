@@ -22,5 +22,9 @@ export interface IUserData {
         name: string;
         is_required_theme: boolean;
     }[]
-    scenarios: []
+    scenarios: {
+        id: number;
+        name: string;
+        scheduled_time: string;
+    }[]
 }

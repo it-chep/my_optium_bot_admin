@@ -5,6 +5,8 @@ import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { IScenario, ScenarioItem, scenarioService, useScenarioActions } from "../../../entities/scenario";
 import { SCENARIO_UPDATE_ROUTE } from "../../../app/router/routes";
 import { EditAction } from "../../../features/editAction";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 
 export const ScenarioWidget: FC = () => {
@@ -14,6 +16,7 @@ export const ScenarioWidget: FC = () => {
     const {setGlobalMessage} = useGlobalMessageActions()
 
     const {setScenario} = useScenarioActions()
+    const {setIsAuth} = useMyActions()
 
     const getData = async () => {
         try{
@@ -23,7 +26,13 @@ export const ScenarioWidget: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка сценариев', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка сценариев', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)
