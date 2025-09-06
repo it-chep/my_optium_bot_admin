@@ -5,12 +5,13 @@ import { MyTextarea } from "../../../../shared/ui/textarea";
 import { Action } from "../action/Action";
 import { Lists } from "../lists/Lists";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
+import { StepNumber } from "../stepNumber/StepNumber";
 
 export const AdminMessageChange: FC = () => {
 
     const [adminMessages, setAdminMessage] = useState<IAdminMessageData>({
         scenario_id: -1,
-        step_order: '1',
+        step_order: -1,
         message: '',
         type: -1
     })
@@ -26,13 +27,16 @@ export const AdminMessageChange: FC = () => {
                 />            
             </section>
            
-            <MyInput 
-                title="Номер шага (integer > 0)"
-                value={String(adminMessages.step_order)}
-                setValue={(val: string) => setAdminMessage({...adminMessages, step_order: val})}
-                type="number"
-            />
-           
+            
+             <section>
+                <section className={classes.title}>Порядковый номер шага</section>
+                <StepNumber 
+                    adminMessages={adminMessages}
+                    setAdminMessage={setAdminMessage}
+                />     
+            </section>
+
+            
             <section>
                 <section className={classes.title}>Тип сообщения (доктору/админу)</section>
                 <Lists 
