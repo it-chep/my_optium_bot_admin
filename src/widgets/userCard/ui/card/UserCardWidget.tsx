@@ -7,6 +7,9 @@ import { Lists } from "../lists/Lists";
 import { Posts } from "../posts/Posts";
 import { AddUserData } from "../../../../features/addUserData";
 import { MyButton } from "../../../../shared/ui/button";
+import { Scenarios } from "../scenarios/Scenarios";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps{
     currentUser: number;
@@ -17,7 +20,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
 
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-
+    const {setIsAuth} = useMyActions()
     const [user, setUser] = useState<IUserData>()
 
     const setLists = (item: IUserData['lists'][0], selected: boolean) => {
@@ -46,8 +49,14 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении информации о пользователе', type: 'error'})
-            setCurrentUser(null)
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setCurrentUser(null)
+                setGlobalMessage({message: 'Ошибка при получении информации о пользователе', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)
@@ -101,6 +110,12 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
                                 type="posts" 
                                 userItems={user.lists} 
                             />
+                        </section>
+                    </section>
+                    <section className={classes.dataWrap}>
+                        <h3>Следующий запуск сценария</h3>
+                        <section className={classes.dataContainer}>
+                                <Scenarios user={user} setUser={setUser} />
                         </section>
                     </section>
                 </>

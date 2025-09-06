@@ -1,3 +1,5 @@
+export { ScenarioItem } from "./ui/scenarioItem/ScenarioItem";
+
 export { CardBadge } from "./ui/badge/cardBadge";
 
 export { UserCard } from "./ui/card/UserCard";

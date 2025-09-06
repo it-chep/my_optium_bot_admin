@@ -1,0 +1,23 @@
+
+
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--gray);
+    padding: 24px 16px;
+    width: 100%;
+    border-radius: 8px;
+
+    .name{
+
+    }
+
+    .time{
+
+        .data{
+            font-weight: 600;
+        }
+    }
+}
