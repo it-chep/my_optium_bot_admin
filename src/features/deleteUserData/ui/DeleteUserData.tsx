@@ -4,6 +4,8 @@ import { Modal } from "../../../shared/ui/modal";
 import { ConfirmationAction } from "../../../shared/ui/confirmationAction";
 import { userService } from "../../../entities/user";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 interface IProps {
     userId: number;
@@ -16,6 +18,7 @@ export const DeleteUserData: FC<IProps> = ({userId, targetId, type}) => {
     const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
+    const {setIsAuth} = useMyActions()
 
     const onDelete = async () => {
         try{
@@ -30,7 +33,13 @@ export const DeleteUserData: FC<IProps> = ({userId, targetId, type}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: `Ошибка при удалении ${type === 'list' ? 'списка' : 'поста'} у пользователя`, type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: `Ошибка при удалении ${type === 'list' ? 'списка' : 'поста'} у пользователя`, type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

@@ -8,6 +8,8 @@ import { IItem } from "../../../../shared/model/types";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
 import { scenarioService } from "../../../../entities/scenario";
 import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     type: 'scenarios' | 'typeMessage';
@@ -22,7 +24,8 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
     
     const {setIsLoading: setGlobalIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
-    
+    const {setIsAuth} = useMyActions()
+
     const [items, setItems] = useState<IItem[]>([])
     
     const getData = async () => {
@@ -33,7 +36,13 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка сценарий', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка сценарий', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

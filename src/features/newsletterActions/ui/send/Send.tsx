@@ -7,6 +7,8 @@ import { INewsletter, newslettersService } from "../../../../entities/newsletter
 import sendImg from '../../../../shared/lib/assets/send.png'
 import classes from '../newsletterActions.module.scss'
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     id: number;
@@ -19,6 +21,7 @@ export const Send: FC<IProps> = ({id, onChangeStatusId}) => {
     const [open, setOpen] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
+    const {setIsAuth} = useMyActions()
 
     const onSend = async () => {
         try{
@@ -30,7 +33,13 @@ export const Send: FC<IProps> = ({id, onChangeStatusId}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при отправлении рассылки', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при отправлении рассылки', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

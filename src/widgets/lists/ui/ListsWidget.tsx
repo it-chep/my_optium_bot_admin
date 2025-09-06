@@ -8,6 +8,8 @@ import { MyButton } from "../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
 import { LIST_CREATE_ROUTE } from "../../../app/router/routes";
 import { DeleteAction } from "../../../features/deleteAction";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 
 
@@ -18,6 +20,7 @@ export const ListsWidget: FC = () => {
     const [lists, setLists] = useState<IList[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
+    const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setInitialState} = useListActions()
 
@@ -33,7 +36,13 @@ export const ListsWidget: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка рассылок', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка рассылок', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

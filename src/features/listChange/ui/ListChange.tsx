@@ -8,6 +8,8 @@ import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { useNavigate } from "react-router-dom";
 import { LISTS_ROUTE } from "../../../app/router/routes";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 interface IProps {
     isCreate: boolean;
@@ -20,7 +22,7 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
     const {setIsLoading} = useGlobalLoadingActions()
 
     const router = useNavigate()
-
+    const {setIsAuth} = useMyActions()
     const {list} = useAppSelector(s => s.listReducer)
     const {setName} = useListActions()
 
@@ -37,7 +39,13 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: `Ошибка при ${isCreate? 'создании' : 'изменении'} списка`, type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: `Ошибка при ${isCreate? 'создании' : 'изменении'} списка`, type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

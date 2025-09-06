@@ -6,6 +6,8 @@ import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { Sign } from "../../../shared/ui/sign";
 import deleteImg from '../../../shared/lib/assets/delete.png'
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 interface IProps {
    onDelete: () => Promise<void>;
@@ -19,6 +21,7 @@ export const DeleteAction: FC<IProps> = ({onDelete, questionText, errorText, suc
     const [open, setOpen] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
+    const {setIsAuth} = useMyActions()
 
     const onDeleteWrap = async () => {
         try{
@@ -29,7 +32,13 @@ export const DeleteAction: FC<IProps> = ({onDelete, questionText, errorText, suc
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: errorText, type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: errorText, type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

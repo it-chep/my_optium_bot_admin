@@ -6,6 +6,8 @@ import { scenarioService, ScenarioStepItem, useScenarioStepDataActions } from ".
 import { EditAction } from "../../../features/editAction";
 import { IScenarioStep } from "../../../entities/scenario/model/types";
 import { SCENARIO_MESSAGE_UPDATE_ROUTE } from "../../../app/router/routes";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 
 export const ScenarioMessagesWidget: FC = () => {
@@ -13,7 +15,7 @@ export const ScenarioMessagesWidget: FC = () => {
     const [steps, setSteps] = useState<IScenarioStep[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setGlobalMessage} = useGlobalMessageActions()
-
+    const {setIsAuth} = useMyActions()
     const {setScenarioStepData} = useScenarioStepDataActions()
 
     const getData = async () => {
@@ -24,7 +26,13 @@ export const ScenarioMessagesWidget: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка текстов сообщений сценариев', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка текстов сообщений сценариев', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

@@ -8,6 +8,8 @@ import { MyButton } from "../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
 import { NEWSLETTER_CREATE_ROUTE } from "../../../app/router/routes";
 import { DeleteAction } from "../../../features/deleteAction";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 
 
@@ -16,7 +18,8 @@ export const NewslettersWidget: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setInitialState} = useNewsletterActions()
-
+    const {setIsAuth} = useMyActions()
+    
     const [newsletters, setNewsletters] = useState<INewsletter[]>([])
 
     const router = useNavigate()
@@ -29,7 +32,13 @@ export const NewslettersWidget: FC = () => {
         }
         catch(e){
             console.log(e)
-            setGlobalMessage({message: 'Ошибка при получении списка рассылок', type: 'error'})
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении списка рассылок', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)

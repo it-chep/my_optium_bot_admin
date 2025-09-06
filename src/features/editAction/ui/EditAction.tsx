@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { Sign } from "../../../shared/ui/sign";
+import { AuthError } from "../../../shared/lib/helpers/AuthError";
+import { useMyActions } from "../../../entities/my";
 
 interface IProps {
     toPath: string;
@@ -18,6 +20,7 @@ export const EditAction: FC<IProps> = ({toPath, onEditAsync, onEdit, errorText="
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
     const router = useNavigate()
+    const {setIsAuth} = useMyActions()
 
     const onEditAsyncWrap = async () => {
         if(onEditAsync){
@@ -28,7 +31,13 @@ export const EditAction: FC<IProps> = ({toPath, onEditAsync, onEdit, errorText="
             }
             catch(e){
                 console.log(e)
-                setGlobalMessage({message: errorText, type: 'error'})
+                if(e instanceof AuthError){
+                    setIsAuth(false)
+                    setGlobalMessage({message: e.message, type: 'error'})
+                }
+                else{
+                    setGlobalMessage({message: errorText, type: 'error'})
+                }
             }
             finally{
                 setIsLoading(false)
