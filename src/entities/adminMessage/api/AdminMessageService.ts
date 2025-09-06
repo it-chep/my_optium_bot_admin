@@ -12,7 +12,7 @@ class AdminMessageService{
     }
 
     async delete(id: number){
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/' + id, {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/' + id, {
             method: "DELETE"
         })
     }

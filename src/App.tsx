@@ -61,9 +61,6 @@ function App() {
           <Outlet />
           { globalMessage.message && <GlobalMessage /> }
           { globalIsLoading && <GlobalLoading /> }
-          <footer>
-
-          </footer>
         </>
       }
     </section>
