@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './lists.module.scss'
 import { DropDownList } from "../../../../shared/ui/dropDown";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
@@ -9,6 +9,7 @@ import arrow from '../../../../shared/lib/assets/arrowDown.png'
 import { IItem } from "../../../../shared/model/types";
 import { useInformationPostActions } from "../../../../entities/informationPost";
 import { postService } from "../../../../entities/post";
+import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 
 interface IProps {
     type: 'posts' | 'fileType'
@@ -17,7 +18,6 @@ interface IProps {
 
 export const Lists: FC<IProps> = ({type}) => {
 
-    const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     
     const {informationPost} = useAppSelector(s => s.informationPostReducer)
@@ -51,10 +51,10 @@ export const Lists: FC<IProps> = ({type}) => {
 
     const setItem = (item: {id: number, name: string}, selected: boolean) => { 
         if(type === 'posts'){
-            setThemeId(item.id)
+            setThemeId(selected ? item.id : -1)
         }
         else{
-            setContentTypeId(item.id)
+            setContentTypeId(selected ? item.id : -1)
         }
     }
     
@@ -74,33 +74,18 @@ export const Lists: FC<IProps> = ({type}) => {
         }
     }
 
+    useEffect(() => {
+        getData()
+    }, [])
+
     return (
         <section className={classes.container}>
-            <section 
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => setOpen(!open)} 
-                className={classes.button}
-            >
-                {
-                    type === "posts" 
-                        ? 
-                    items.find(item => item.id === informationPost.theme_id)?.name || (informationPost.theme_id < 0 && 'не выбрано')
-                        :
-                    items.find(item => item.id === informationPost.content_type_id)?.name || (informationPost.content_type_id < 0 && 'не выбрано')
-                }
-                <img alt="Открыть" src={arrow} />
-            </section>
-            {
-                open
-                    &&
-                <DropDownList 
-                    onSelected={onSelected}
-                    getList={getData}
-                    isLoading={isLoading}
-                    items={items}
-                    selectedIdItems={type === "posts" ? [informationPost.theme_id] : [informationPost.content_type_id]}
-                />
-            }
+            <DropDownListSelected 
+                onSelected={onSelected}
+                isLoading={isLoading}
+                items={items}
+                selectedIdItems={type === "posts" ? [informationPost.theme_id] : [informationPost.content_type_id]}
+            />
         </section>
     )
 }

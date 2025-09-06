@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './lists.module.scss'
 import { DropDownList } from "../../../../shared/ui/dropDown";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
@@ -7,6 +7,7 @@ import arrow from '../../../../shared/lib/assets/arrowDown.png'
 import { IItem } from "../../../../shared/model/types";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
 import { scenarioService } from "../../../../entities/scenario";
+import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 
 interface IProps {
     type: 'scenarios' | 'typeMessage';
@@ -17,7 +18,6 @@ interface IProps {
 
 export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
 
-    const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(type === 'scenarios')
     
     const {setIsLoading: setGlobalIsLoading} = useGlobalLoadingActions()
@@ -55,10 +55,10 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
 
     const setItem = (item: {id: number, name: string}, selected: boolean) => { 
         if(type === 'scenarios'){
-            setAdminMessage({...adminMessage, scenario_id: item.id})
+            setAdminMessage({...adminMessage, scenario_id: selected ? item.id : -1, step_order: -1})
         }
         else{
-            setAdminMessage({...adminMessage, type: item.id})
+            setAdminMessage({...adminMessage, type: selected ? item.id : -1})
         }
     }
     
@@ -78,33 +78,18 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
         }
     }
 
+    useEffect(() => {
+        (type === 'scenarios' ? getData : getDataType)()
+    }, [])
+
     return (
         <section className={classes.container}>
-            <section 
-                onMouseDown={e => e.preventDefault()}
-                onClick={() => setOpen(!open)} 
-                className={classes.button}
-            >
-                {
-                    type === "scenarios" 
-                        ? 
-                    items.find(item => item.id === adminMessage.scenario_id)?.name || (adminMessage.scenario_id < 0 && 'не выбрано')
-                        :
-                    items.find(item => item.id === adminMessage.type)?.name || (adminMessage.type < 0 && 'не выбрано')
-                }
-                <img alt="Открыть" src={arrow} />
-            </section>
-            {
-                open
-                    &&
-                <DropDownList 
-                    onSelected={onSelected}
-                    getList={type === 'scenarios' ? getData : getDataType}
-                    isLoading={isLoading}
-                    items={items}
-                    selectedIdItems={type === "scenarios" ? [adminMessage.scenario_id] : [adminMessage.type]}
-                />
-            }
+            <DropDownListSelected 
+                onSelected={onSelected}
+                isLoading={isLoading}
+                items={items}
+                selectedIdItems={type === "scenarios" ? [adminMessage.scenario_id] : [adminMessage.type]}
+            />
         </section>
     )
 }
