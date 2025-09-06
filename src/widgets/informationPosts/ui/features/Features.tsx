@@ -2,7 +2,7 @@ import { FC } from "react";
 import classes from './features.module.scss'
 import { DeleteAction } from "../../../../features/deleteAction";
 import { EditAction } from "../../../../features/editAction";
-import { POST_THEME_UPDATE_ROUTE } from "../../../../app/router/routes";
+import { INFORMATION_POST_UPDATE_ROUTE, POST_THEME_UPDATE_ROUTE } from "../../../../app/router/routes";
 import { IInformationPost, informationPostService, useInformationPostActions } from "../../../../entities/informationPost";
 
 interface IProps {
@@ -25,7 +25,7 @@ export const Features: FC<IProps> = ({infPost}) => {
         <section className={classes.container}>
             <EditAction 
                 onEditAsync={onEdit}     
-                toPath={POST_THEME_UPDATE_ROUTE.path}
+                toPath={INFORMATION_POST_UPDATE_ROUTE.path}
                 errorText="Ошибка при получении данных информационного поста"
             />
             <DeleteAction 
