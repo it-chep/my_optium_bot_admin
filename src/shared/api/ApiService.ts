@@ -1,3 +1,4 @@
+import { AuthError } from "../lib/helpers/AuthError";
 
 
 export const fetchAuth = async (url: string, init?: RequestInit): Promise<Response> => {
@@ -10,5 +11,8 @@ export const fetchAuth = async (url: string, init?: RequestInit): Promise<Respon
     } 
     newInit.credentials = 'include'
     const res = await fetch(url, newInit)
+    if(res.status === 401){
+        throw new AuthError('Пользователь не авторизован', 401)
+    }
     return res
 }
