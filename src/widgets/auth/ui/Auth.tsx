@@ -20,8 +20,7 @@ export const Auth: FC = () => {
     const onClick = async () => {
         try{
             setIsLoading(true)
-            // await new Promise(resolve => setTimeout(resolve, 2000))
-            // await userService.login(user.email, password)
+            await myService.login(my.email, password)
             setIsAuth(true)
             router('/')
         }
