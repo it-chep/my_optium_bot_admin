@@ -10,11 +10,10 @@ interface IProps {
     items: IItem[];
     selectedIdItems: number[];
     onSelected: (item: IItem) => (selected: boolean) => void
-    getList: () => void;
     isLoading: boolean;
 }
 
-export const DropDownListSelected: FC<IProps> = ({selectedIdItems, items, isLoading, getList, onSelected}) => {
+export const DropDownListSelected: FC<IProps> = ({selectedIdItems, items, isLoading, onSelected}) => {
 
     const [open, setOpen] = useState<boolean>(false)
 
