@@ -25,15 +25,59 @@ class InformationPostService {
     }
 
     async get(id: number): Promise<IInformationPostData> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts/' + id)
-        const {post}: {post: IInformationPostData} = await res.json()
-        return post
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts/' + id)
+        // const {post}: {post: IInformationPostData} = await res.json()
+        return {
+          id: 12,
+          post_name: 'asd',
+          theme_id: 2,
+          order: 4,
+          message: 'esfdds',
+          media_id:'url...',
+          content_type_id: 2
+        }
     }
     
     async getAll(){
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts')
-        const {posts} = await res.json() 
-        return posts
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts')
+        // const {posts} = await res.json() 
+        return [
+    {
+      "id": 5,
+      "name": "Sample Post",
+      "theme_name": "Обязательный контент",
+      "order": 1,
+      "is_theme_required": true
+    },
+    {
+      "id": 4,
+      "name": "Sample Post",
+      "theme_name": "Обязательный контент",
+      "order": 1,
+      "is_theme_required": true
+    },
+    {
+      "id": 1,
+      "name": "123",
+      "theme_name": "Обязательный контент",
+      "order": 1,
+      "is_theme_required": true
+    },
+    {
+      "id": 2,
+      "name": "234",
+      "theme_name": "Мотивация",
+      "order": 1,
+      "is_theme_required": true
+    },
+    {
+      "id": 3,
+      "name": "456",
+      "theme_name": "Подготовка к новому этапу",
+      "order": 1,
+      "is_theme_required": true
+    }
+  ] 
     }
 
 }

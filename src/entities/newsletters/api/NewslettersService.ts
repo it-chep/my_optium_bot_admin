@@ -23,9 +23,16 @@ class NewslettersService{
     }
 
     async get(id: number): Promise<INewsletterData> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}`)
-        const {data}: {data: INewsletterData} = await res.json()
-        return data
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/newsletters/${id}`)
+        // const {data}: {data: INewsletterData} = await res.json()
+        return {
+            "id": 1,
+            "name": "Первая",
+            "text": 'aaaaaaaaa',
+            "users_lists": [1, 3],
+            "media_id": 'url...',
+            "content_type_id": 2
+        }
     }
 
     async getRecepientsCount(list_ids: number[]): Promise<number> {
@@ -50,9 +57,18 @@ class NewslettersService{
     }
 
     async getContentTypes(): Promise<IItem[]> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/content_types`)
-        const {content_types}: {content_types: IItem[]} = await res.json()
-        return content_types
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/content_types`)
+        // const {content_types}: {content_types: IItem[]} = await res.json()
+        return [
+            {
+                id: 1,
+                name: 'фото'
+            },
+            {
+                id: 2,
+                name: 'видео'
+            }
+        ]
     }
 
     async create(newsletter: INewsletterData){
@@ -70,9 +86,38 @@ class NewslettersService{
     }
 
     async getAll(): Promise<INewsletter[]> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters')
-        const {newsletters}: {newsletters: INewsletter[]} = await res.json() 
-        return newsletters
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters')
+        // const {newsletters}: {newsletters: INewsletter[]} = await res.json() 
+        return [
+    {
+      "id": 1,
+      "name": "Первая",
+      "status_id": 1,
+      "status_name": "Черновик",
+      "users_count": 123
+    },
+    {
+      "id": 2,
+      "name": "Вторая",
+      "status_id": 2,
+      "status_name": "Отправляется",
+      "users_count": 12
+    },
+    {
+      "id": 3,
+      "name": "тест",
+      "status_id": 1,
+      "status_name": "Черновик",
+      "users_count": 2
+    },
+    {
+      "id": 4,
+      "name": "Пример рассылки",
+      "status_id": 1,
+      "status_name": "Черновик",
+      "users_count": 2
+    }
+  ]
     }
 
 }
