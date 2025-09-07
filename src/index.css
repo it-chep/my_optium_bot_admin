@@ -87,7 +87,7 @@ ul{
 @font-face {
   font-family: 'Roboto';
   src: url('./shared/fonts/Roboto/Roboto-ExtraBold.ttf');
-  font-weight: 900;
+  font-weight: 800;
 }
 
 @font-face {
