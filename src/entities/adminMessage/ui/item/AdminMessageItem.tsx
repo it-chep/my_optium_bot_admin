@@ -21,7 +21,7 @@ export const AdminMessageItem: FC<IProps & PropsWithChildren> = ({adminMessage, 
                 </section>
                 <section className={classes.sign}>
                     <Sign sign="Номер шага">
-                        NOOOOOOOOO
+                        {adminMessage.step_order}
                     </Sign>
                 </section>
                 <section className={classes.sign}>

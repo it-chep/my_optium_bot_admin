@@ -7,6 +7,7 @@ export interface IAdminMessage {
     type_name: string;
     type: number;
     text: string;
+    step_order: number;
 }
 
 export interface IAdminMessageData {
