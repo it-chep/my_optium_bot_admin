@@ -23,6 +23,12 @@ export const AdminMessagesWidget: FC = () => {
 
     const onDelete = async (id: number) => {
         await adminMessageService.delete(id)
+        const targetInd = messages.findIndex(m => m.id === id)
+        if(targetInd >= 0){
+            const target: IAdminMessage[] = JSON.parse(JSON.stringify(messages))
+            target.splice(targetInd, 1)
+            setMessages(target)
+        }
     }
 
     const getData = async () => {

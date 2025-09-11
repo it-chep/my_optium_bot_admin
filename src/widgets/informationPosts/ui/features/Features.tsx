@@ -7,13 +7,21 @@ import { IInformationPost, informationPostService, useInformationPostActions } f
 
 interface IProps {
     infPost: IInformationPost;
+    posts: IInformationPost[];
+    setPosts: (posts: IInformationPost[]) => void;
 }
 
-export const Features: FC<IProps> = ({infPost}) => {
+export const Features: FC<IProps> = ({posts, setPosts, infPost}) => {
     const {setInformationPostData} = useInformationPostActions()
 
     const onDelete = async () => {
         await informationPostService.delete(infPost.id)
+        const targetInd = posts.findIndex(p => p.id === infPost.id)
+        if(targetInd >= 0){
+            const target: IInformationPost[] = JSON.parse(JSON.stringify(posts))
+            target.splice(targetInd, 1)
+            setPosts(target)
+        }
     }
 
     const onEdit = async () => {
