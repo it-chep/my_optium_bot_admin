@@ -10,6 +10,8 @@ import { MyButton } from "../../../../shared/ui/button";
 import { Scenarios } from "../scenarios/Scenarios";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
+import { IItem } from "../../../../shared/model/types";
+import { IPost } from "../../../../entities/post";
 
 interface IProps{
     currentUser: number;
@@ -22,20 +24,40 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setIsAuth} = useMyActions()
     const [user, setUser] = useState<IUserData>()
+    const [posts, setPosts] = useState<IPost[]>([])
 
-    const setLists = (item: IUserData['lists'][0], selected: boolean) => {
+    const setList = (item: IUserData['lists'][0], selected: boolean) => {
         if(user){
             const target = [...user.lists]
             if(selected){
                 target.push(item)
             }
             else{
-                const targetInd = target.findIndex(list => list.name === item.name)
+                const targetInd = target.findIndex(list => list.id === item.id)
                 if(targetInd >= 0){
                     target.splice(targetInd, 1)
                 }
             }
             setUser({...user, lists: target})
+        }
+    }
+
+    const setPost = (item: IItem, selected: boolean) => {
+        if(user){
+            const target = [...user.posts]
+            if(selected){
+                const targetItem = posts.find(p => p.id === item.id)
+                if(targetItem){
+                    target.push({...targetItem, is_required_theme: targetItem.is_theme_required})
+                }
+            }
+            else{
+                const targetInd = target.findIndex(list => list.id === item.id)
+                if(targetInd >= 0){
+                    target.splice(targetInd, 1)
+                }
+            }
+            setUser({...user, posts: target})
         }
     }
 
@@ -92,7 +114,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
                             </section>
                             <AddUserData 
                                 userId={currentUser} 
-                                setLists={setLists} 
+                                setLists={setList} 
                                 type="lists" 
                                 userItems={user.lists} 
                             />
@@ -106,9 +128,10 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
                             </section>
                             <AddUserData 
                                 userId={currentUser} 
-                                setLists={setLists} 
+                                setLists={setPost} 
+                                setPosts={setPosts}
                                 type="posts" 
-                                userItems={user.lists} 
+                                userItems={user.posts} 
                             />
                         </section>
                     </section>

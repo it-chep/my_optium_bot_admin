@@ -5,7 +5,7 @@ import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { userService } from "../../../../entities/user";
 import { listService } from "../../../../entities/list";
-import { postService } from "../../../../entities/post";
+import { IPost, postService } from "../../../../entities/post";
 import { DropDownList } from "../../../../shared/ui/dropDown";
 import { IItem } from "../../../../shared/model/types";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
@@ -16,9 +16,10 @@ interface IProps {
     type: 'posts' | 'lists';
     setLists: (item: IItem, selected: boolean) => void;
     userId: number;
+    setPosts?: (post: IPost[]) => void;
 }
 
-export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId}) => {
+export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId, setPosts}) => {
 
     const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -37,6 +38,7 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId}) => 
             }
             else{
                 const itemsRes = await postService.getAll()
+                setPosts && setPosts(itemsRes)
                 setItems(itemsRes)
             }
         }
