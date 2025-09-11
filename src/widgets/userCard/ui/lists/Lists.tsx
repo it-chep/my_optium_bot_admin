@@ -15,7 +15,7 @@ export const Lists: FC<IProps> = ({user}) => {
         {    
             user.lists.map(list => 
                 <CardBadge key={list.id} name={list.name}>
-                    <DeleteUserData type="list" userId={user.user.id} targetId={list.id} />
+                    {/* <DeleteUserData type="list" userId={user.user.id} targetId={list.id} /> */}
                 </CardBadge>
             )
         } 

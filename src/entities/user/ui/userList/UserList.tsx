@@ -10,6 +10,10 @@ interface IProps{
 
 export const UserList: FC<IProps> = ({users, setCurrentUser}) => {
 
+    const onClick = (id: number) => {
+        setCurrentUser(id)
+        window.scrollTo({top: 0, behavior: "smooth"})
+    }
 
     return (
         <table className={classes.list}>
@@ -32,7 +36,15 @@ export const UserList: FC<IProps> = ({users, setCurrentUser}) => {
                         <td><a href={user.metrics_link} target="_blank">ссылка</a></td>
                         <td>{user.birthday}</td>
                         <td> 
-                            <section className={classes.button}><MyButton onClick={() => setCurrentUser(user.id)}>Подробнее</MyButton></section>
+                            <section 
+                                className={classes.button}
+                            >
+                                <MyButton 
+                                    onClick={() => onClick(user.id)}
+                                >
+                                    Подробнее
+                                </MyButton>
+                            </section>
                         </td>
                     </tr>
                 )}

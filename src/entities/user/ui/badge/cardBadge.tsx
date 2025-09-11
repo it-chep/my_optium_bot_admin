@@ -15,9 +15,7 @@ export const CardBadge: FC<IProps & PropsWithChildren> = ({name, is_required_the
         <section className={classes.badge}>
             {is_required_theme && <img src={required_theme_img} className={classes.required} />}
             <section className={classes.name}>{name}</section>
-            <section className={classes.feature}>
-                {children}
-            </section>
+            
         </section>
     )
 }

@@ -66,7 +66,11 @@ export const InformationPostsWidget: FC = () => {
                             key={infPost.id}
                             infPostItem={infPost}
                         >
-                            <Features infPost={infPost} />
+                            <Features 
+                                infPost={infPost}
+                                posts={infPosts}
+                                setPosts={setInfPosts} 
+                            />
                         </InformationPostItem>
                     )}
                 </ul>

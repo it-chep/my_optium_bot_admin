@@ -7,14 +7,23 @@ import { POST_THEME_UPDATE_ROUTE } from "../../../../app/router/routes";
 
 interface IProps {
     post: IPost;
+    posts: IPost[];
+    setPosts: (post: IPost[]) => void;
 }
 
-export const Features: FC<IProps> = ({post}) => {
+export const Features: FC<IProps> = ({posts, setPosts, post}) => {
 
     const {setPost} = usePostActions()
 
     const onDelete = async () => {
         await postService.delete(post.id)
+        const targetInd = posts.findIndex(p => p.id === post.id)
+        if(targetInd >= 0){
+            const target: IPost[] = JSON.parse(JSON.stringify(posts))
+            target.splice(targetInd, 1)
+            setPosts(target)
+        }
+        await new Promise(resolve => setTimeout(resolve, 4000))
     }
 
     const onEdit = () => {

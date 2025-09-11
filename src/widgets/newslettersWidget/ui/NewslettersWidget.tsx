@@ -65,6 +65,12 @@ export const NewslettersWidget: FC = () => {
 
     const onDelete = async (id: number) => {
         await newslettersService.delete(id)
+        const targetInd = newsletters.findIndex(n => n.id === id)
+        if(targetInd >= 0){
+            const target: INewsletter[] = JSON.parse(JSON.stringify(newsletters))
+            target.splice(targetInd, 1)
+            setNewsletters(target)
+        }
     }
 
     return (

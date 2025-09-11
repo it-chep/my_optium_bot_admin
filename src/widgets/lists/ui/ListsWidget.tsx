@@ -26,6 +26,12 @@ export const ListsWidget: FC = () => {
 
     const onDelete = async (id: number) => {
         await listService.delete(id)
+        const targetInd = lists.findIndex(l => l.id === id)
+        if(targetInd >= 0){
+            const target: IList[] = JSON.parse(JSON.stringify(lists))
+            target.splice(targetInd, 1)
+            setLists(target)
+        }
     }
 
     const getData = async () => {

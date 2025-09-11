@@ -62,7 +62,11 @@ export const PostsThemesWidget: FC = () => {
                     </li>
                     {posts.map(post => 
                         <PostItem key={post.id} postItem={post}>
-                            <Features post={post} />
+                            <Features 
+                                posts={posts}
+                                setPosts={setPosts}
+                                post={post} 
+                            />
                         </PostItem>
                     )}
                 </ul>
