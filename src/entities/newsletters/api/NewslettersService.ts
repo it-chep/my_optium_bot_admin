@@ -50,18 +50,9 @@ class NewslettersService{
     }
 
     async getContentTypes(): Promise<IItem[]> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/content_types`)
-        // const {content_types}: {content_types: IItem[]} = await res.json()
-        return [
-            {
-                id: 1,
-                name: 'фото'
-            },
-            {
-                id: 2,
-                name: 'видео'
-            }
-        ]
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/content_types`)
+        const {content_types}: {content_types: IItem[]} = await res.json()
+        return content_types
     }
 
     async create(newsletter: INewsletterData){
@@ -79,38 +70,9 @@ class NewslettersService{
     }
 
     async getAll(): Promise<INewsletter[]> {
-        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters')
-        // const {newsletters}: {newsletters: INewsletter[]} = await res.json() 
-        return [
-    {
-      "id": 1,
-      "name": "Первая",
-      "status_id": 1,
-      "status_name": "Черновик",
-      "users_count": 123
-    },
-    {
-      "id": 2,
-      "name": "Вторая",
-      "status_id": 2,
-      "status_name": "Отправляется",
-      "users_count": 12
-    },
-    {
-      "id": 3,
-      "name": "тест",
-      "status_id": 1,
-      "status_name": "Черновик",
-      "users_count": 2
-    },
-    {
-      "id": 4,
-      "name": "Пример рассылки",
-      "status_id": 1,
-      "status_name": "Черновик",
-      "users_count": 2
-    }
-  ]
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/newsletters')
+        const {newsletters}: {newsletters: INewsletter[]} = await res.json() 
+        return newsletters
     }
 
 }
