@@ -5,15 +5,16 @@ import { IAdminMessage, IAdminMessageData } from "../model/types"
 class AdminMessageService{
 
     async create(adminMessages: IAdminMessageData){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/', {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages', {
             method: "POST",
             body: JSON.stringify({...adminMessages})
         })
     }
 
-    async delete(id: number){
+    async delete(id: number, type: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/' + id, {
-            method: "DELETE"
+            method: "POST",
+            body: JSON.stringify({type})
         })
     }
 

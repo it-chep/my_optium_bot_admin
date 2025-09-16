@@ -21,8 +21,8 @@ export const AdminMessagesWidget: FC = () => {
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
 
-    const onDelete = async (id: number) => {
-        await adminMessageService.delete(id)
+    const onDelete = async (id: number, type: number) => {
+        await adminMessageService.delete(id, type)
         const targetInd = messages.findIndex(m => m.id === id)
         if(targetInd >= 0){
             const target: IAdminMessage[] = JSON.parse(JSON.stringify(messages))
@@ -75,7 +75,7 @@ export const AdminMessagesWidget: FC = () => {
                                 questionText="Точно хотите удалить сообщение ?"
                                 errorText="Ошибка при удалении сообщения"
                                 successText="Сообщение успешно удалено"
-                                onDelete={() => onDelete(message.id)}
+                                onDelete={() => onDelete(message.id, message.type)}
                             />
                         </AdminMessageItem>
                     )}
