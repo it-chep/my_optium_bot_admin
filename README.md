@@ -13,3 +13,9 @@
 env: 
 REACT_APP_SERVER_URL_ADMIN
 REACT_APP_CLIENT_URL
+
+REACT_APP_USE_AUTH
+
+### use auth
+либо 'false', либо любое другое знач ('')
+например, REACT_APP_USE_AUTH=false
