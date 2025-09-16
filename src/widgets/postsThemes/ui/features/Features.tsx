@@ -23,7 +23,6 @@ export const Features: FC<IProps> = ({posts, setPosts, post}) => {
             target.splice(targetInd, 1)
             setPosts(target)
         }
-        await new Promise(resolve => setTimeout(resolve, 4000))
     }
 
     const onEdit = () => {
