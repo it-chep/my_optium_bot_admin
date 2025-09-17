@@ -20,7 +20,7 @@ class ScenarioService {
     }
         
     async getStepsNumbers(scenarioId: number): Promise<IStepNumber[]> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/scenarios/' + scenarioId + 'steps')
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/scenarios/' + scenarioId + '/steps')
         const {steps}: {steps: IStepNumber[]} = await res.json()
         return steps
     }
