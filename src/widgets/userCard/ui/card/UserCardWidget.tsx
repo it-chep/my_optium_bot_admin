@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import classes from './userCardWidget.module.scss'
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
-import { IUser, IUserData, UserCard, userService } from "../../../../entities/user";
+import { IUserData, UserCard, userService } from "../../../../entities/user";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { Lists } from "../lists/Lists";
 import { Posts } from "../posts/Posts";
@@ -11,7 +11,7 @@ import { Scenarios } from "../scenarios/Scenarios";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { IItem } from "../../../../shared/model/types";
-import { IPost } from "../../../../entities/post";
+import { IInformationPost } from "../../../../entities/informationPost";
 
 interface IProps{
     currentUser: number;
@@ -24,7 +24,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setIsAuth} = useMyActions()
     const [user, setUser] = useState<IUserData>()
-    const [posts, setPosts] = useState<IPost[]>([])
+    const [postInfs, setPostInfs] = useState<IInformationPost[]>([])
 
     const setList = (item: IUserData['lists'][0], selected: boolean) => {
         if(user){
@@ -46,7 +46,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
         if(user){
             const target = [...user.posts]
             if(selected){
-                const targetItem = posts.find(p => p.id === item.id)
+                const targetItem = postInfs.find(p => p.id === item.id)
                 if(targetItem){
                     target.push({...targetItem, is_required_theme: targetItem.is_theme_required})
                 }
@@ -129,7 +129,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
                             <AddUserData 
                                 userId={currentUser} 
                                 setLists={setPost} 
-                                setPosts={setPosts}
+                                setPostInfs={setPostInfs}
                                 type="posts" 
                                 userItems={user.posts} 
                             />
