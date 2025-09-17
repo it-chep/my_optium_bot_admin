@@ -14,7 +14,7 @@ interface IProps {
 export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    
+    const [selectedId, setSelectedId] = useState<number | null>(null)
     const {setGlobalMessage} = useGlobalMessageActions()
     
     const [items, setItems] = useState<IStepNumber[]>([])
@@ -22,7 +22,6 @@ export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
     const getData = async () => {
         try {
             setIsLoading(true)
-            await new Promise(resolve => setTimeout(resolve, 2222))
             const itemsRes = await scenarioService.getStepsNumbers(adminMessages.scenario_id)
             setItems(itemsRes)   
         }
@@ -37,7 +36,14 @@ export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
 
 
     const setItem = (item: {id: number, name: string}, selected: boolean) => { 
-        setAdminMessage({...adminMessages, step_order: selected ? items.find(i => i.id === item.id)?.step_order || -1 : -1})
+        const targetItem = items.find(i => i.id === item.id)
+        setAdminMessage({...adminMessages, step_order: selected ? targetItem?.step_order || -1 : -1})
+        if(selected && targetItem){
+            setSelectedId(targetItem.id)
+        } 
+        else{
+            setSelectedId(null)
+        }
     }
     
     const onSelected = (item: IItem) => {
@@ -61,7 +67,7 @@ export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
                     onSelected={onSelected}
                     isLoading={isLoading}
                     items={items.map(item => ({id: item.id, name: `${item.step_order}. ${item.name}`}))}
-                    selectedIdItems={[adminMessages.step_order]}
+                    selectedIdItems={selectedId ? [selectedId] : []}
                 />
             }
         </section>
