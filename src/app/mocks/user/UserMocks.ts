@@ -11,8 +11,8 @@ export const UserMocks: {[key: string]: any} = {
             "metrics_link": "https://music.yandex.ru/artist/17760331",
             "birthday": "2004-05-11"
         },
-        "lists": [],
-        "posts": [],
+        "lists": [{id: 2, name: 'Лаг 2'}],
+        "posts": [{id: 5, name: "Sample Post",}],
         "scenarios": []
     },
     [`${urlAdmin}/users`]: {

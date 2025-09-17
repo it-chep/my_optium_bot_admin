@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IInformationPostData } from "../model/types"
+import { IInformationPost, IInformationPostData } from "../model/types"
 
 
 class InformationPostService {
@@ -30,9 +30,9 @@ class InformationPostService {
         return post
     }
     
-    async getAll(){
+    async getAll(): Promise<IInformationPost[]>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/information_posts')
-        const {posts} = await res.json() 
+        const {posts}: {posts: IInformationPost[]} = await res.json() 
         return posts
     }
 

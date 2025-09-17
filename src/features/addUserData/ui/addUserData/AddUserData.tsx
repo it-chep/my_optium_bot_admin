@@ -5,21 +5,21 @@ import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { userService } from "../../../../entities/user";
 import { listService } from "../../../../entities/list";
-import { IPost, postService } from "../../../../entities/post";
 import { DropDownList } from "../../../../shared/ui/dropDown";
 import { IItem } from "../../../../shared/model/types";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
+import { IInformationPost, informationPostService } from "../../../../entities/informationPost";
 
 interface IProps {
     userItems: IItem[];
     type: 'posts' | 'lists';
     setLists: (item: IItem, selected: boolean) => void;
     userId: number;
-    setPosts?: (post: IPost[]) => void;
+    setPostInfs?: (postInfs: IInformationPost[]) => void;
 }
 
-export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId, setPosts}) => {
+export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId, setPostInfs}) => {
 
     const [open, setOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -37,8 +37,8 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId, setP
                 setItems(itemsRes)
             }
             else{
-                const itemsRes = await postService.getAll()
-                setPosts && setPosts(itemsRes)
+                const itemsRes = await informationPostService.getAll()
+                setPostInfs && setPostInfs(itemsRes)
                 setItems(itemsRes)
             }
         }
@@ -62,10 +62,20 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId, setP
             try{
                 setGlobalIsLoading(true)
                 if(type === 'lists'){
-                    await userService.setList(userId, item.id)
+                    if(selected){
+                        await userService.setList(userId, item.id)
+                    }
+                    else{
+                        await userService.deleteUserList(userId, item.id)
+                    }
                 }
                 else{
-                    await userService.setPost(userId, item.id)
+                    if(selected){
+                        await userService.setPost(userId, item.id)
+                    }
+                    else{
+                        await userService.deleteUserPost(userId, item.id)
+                    }
                 }
                 setLists(item, selected)
             }
@@ -88,7 +98,7 @@ export const AddUserData: FC<IProps> = ({userItems, type, setLists, userId, setP
     return (
         <section className={classes.wrapper}>
             <section className={classes.button}>   
-                <MyButton onClick={() => setOpen(!open)}>{open ? '-' : '+'}</MyButton>
+                <MyButton onClick={() => setOpen(!open)}>Добавить / Удалить</MyButton>
             </section>
             {
                 open 

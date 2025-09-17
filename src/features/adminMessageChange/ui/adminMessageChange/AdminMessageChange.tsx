@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import classes from './adminMessageChange.module.scss'
-import { MyInput } from "../../../../shared/ui/input";
 import { MyTextarea } from "../../../../shared/ui/textarea";
 import { Action } from "../action/Action";
 import { Lists } from "../lists/Lists";
@@ -26,7 +25,6 @@ export const AdminMessageChange: FC = () => {
                     type="scenarios" 
                 />            
             </section>
-           
             
              <section>
                 <section className={classes.title}>Порядковый номер шага</section>
@@ -36,7 +34,6 @@ export const AdminMessageChange: FC = () => {
                 />     
             </section>
 
-            
             <section>
                 <section className={classes.title}>Тип сообщения (доктору/админу)</section>
                 <Lists 
