@@ -6,15 +6,15 @@ import { IUser, IUserData } from "../model/types"
 class UserService{
 
     async getUsers(): Promise<IUser[]> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/')
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users')
         const {users}: {users: IUser[]} = await res.json()
         return users
     }
 
     async getUser(id: number): Promise<IUserData> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + id)
-        const {user}: {user: IUserData} = await res.json()
-        return user
+        const data: IUserData = await res.json()
+        return data
     }
         
     async deleteUserList(userId: number, listId: number){

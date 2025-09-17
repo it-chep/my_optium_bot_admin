@@ -16,7 +16,7 @@ export const InformationPostItem: FC<IProps & PropsWithChildren> = ({infPostItem
         <li className={classes.item}>
             <section className={classes.data}>
                 <section className={classes.sign}>
-                    <Sign sign="Название списка">
+                    <Sign sign="Название поста">
                         {infPostItem.name}
                     </Sign>
                 </section>

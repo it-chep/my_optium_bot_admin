@@ -24,7 +24,7 @@ export const Edit: FC<IProps> = ({list}) => {
 
     return (
         <section onClick={onEdit} className={classes.action}>
-            <Sign sign="Редкатировать">
+            <Sign sign="Редактировать">
                 <img src={editImg} />
             </Sign>
         </section>

@@ -1,28 +1,21 @@
 import classes from './auth.module.scss'
 import { Auth } from '../../widgets/auth';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/store/store';
-import { useEffect } from 'react';
+import { HOME_ROUTE } from '../../app/router/routes';
 
 
 export default function AuthPage(){
 
-    const router = useNavigate()
     const {my} = useAppSelector(s => s.myReducer) 
 
-    useEffect(() => {
-        if(my.isAuth){
-            router('/')
-        }
-    }, [])
+    if(my.isAuth){
+        return <Navigate to={HOME_ROUTE.path} replace />
+    }
 
     return (
-        !my.isAuth
-            ?
         <section className={classes.wrapper}>
             <Auth />
         </section>
-            :
-        <></>
     )
 }

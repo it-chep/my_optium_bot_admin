@@ -12,7 +12,7 @@ function App() {
 
   const {setIsAuth} = useMyActions()
   const {my} = useAppSelector(s => s.myReducer)
-  const [isLoading, setIsLoading] = useState<boolean>(!my.isAuth)
+  const [isLoading, setIsLoading] = useState<boolean>(process.env.REACT_APP_USE_AUTH !== "false")
   const router = useNavigate()
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
@@ -39,8 +39,11 @@ function App() {
   }
 
   useEffect(() => {
-    if(!my.isAuth){
+    if(process.env.REACT_APP_USE_AUTH !== "false"){
       auth()
+    }
+    else{
+      setIsAuth(true)
     }
   }, [])
   

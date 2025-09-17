@@ -38,9 +38,9 @@ class NewslettersService{
             body: JSON.stringify({list_ids}),
             signal: this.controller.signal
         })
-        const {counts}: {counts: number} = await res.json()
+        const {count}: {count: number} = await res.json()
         this.controller = null;
-        return counts
+        return count
     }
 
     async sendTest(id: number){
