@@ -13,7 +13,7 @@ class AdminMessageService{
 
     async delete(id: number, type: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/messages/' + id, {
-            method: "POST",
+            method: "DELETE",
             body: JSON.stringify({type})
         })
     }
