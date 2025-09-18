@@ -37,9 +37,9 @@ export const Features: FC<IProps> = ({posts, setPosts, infPost}) => {
                 errorText="Ошибка при получении данных информационного поста"
             />
             <DeleteAction 
-                questionText="Точно хотите удалить тему ?"
-                errorText="Произошла ошибка при удалении темы"
-                successText="Тема успешна удалена"
+                questionText="Точно хотите удалить пост ?"
+                errorText="Произошла ошибка при удалении поста"
+                successText="Пост успешно удален"
                 onDelete={() => onDelete()} 
             />
         </section>
