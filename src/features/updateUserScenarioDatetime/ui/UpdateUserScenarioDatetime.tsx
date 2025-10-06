@@ -19,7 +19,20 @@ export const UpdateUserScenarioDatetime: FC<IProps> = ({user, setDatetime, setOp
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
+    const [error, setError] = useState<string>('')
+    
+    const check = () => {
+        if(value === ''){
+            setError('Обязательное поле')
+            return false
+        }
+        return true
+    }
+
     const onSend = async () => {
+        if(!check()){
+            return
+        }
         try{
             setIsLoading(true)
             await userService.setScenarioDatetime(user.user.id, value)
@@ -43,9 +56,14 @@ export const UpdateUserScenarioDatetime: FC<IProps> = ({user, setDatetime, setOp
                 title="Следующий запуск сценария в формате YYYY-MM-DD HH:MM:SS (2006-01-02 15:04:05)"
                 value={value}
                 setValue={setValue}
+                error={error}
+                setError={setError}
             />
             <section className={classes.button}>
-                <MyButton onClick={onSend}>
+                <MyButton 
+                    onClick={onSend}
+                    error={error.length > 0 ? "Заполните обязательные поля" : ''}    
+                >
                     Сохрнаить
                 </MyButton>
             </section>

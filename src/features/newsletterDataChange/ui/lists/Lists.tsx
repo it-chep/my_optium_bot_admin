@@ -11,10 +11,12 @@ import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
-    type: 'lists' | 'fileType'
+    type: 'lists' | 'fileType';
+    error?: string;
+    setError?: (err: string) => void; 
 }
 
-export const Lists: FC<IProps> = ({type}) => {
+export const Lists: FC<IProps> = ({type, error, setError}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setIsAuth} = useMyActions()
@@ -90,6 +92,9 @@ export const Lists: FC<IProps> = ({type}) => {
                 items={items}
                 selectedIdItems={type === "lists" ? newsletterData.users_lists : [newsletterData.content_type_id]}                
             />
+            <section className={classes.errorText}>
+                {error}
+            </section>
         </section>
     )
 }

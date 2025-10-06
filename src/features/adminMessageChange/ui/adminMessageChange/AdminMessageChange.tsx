@@ -5,6 +5,8 @@ import { Action } from "../action/Action";
 import { Lists } from "../lists/Lists";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
 import { StepNumber } from "../stepNumber/StepNumber";
+import { IFormError } from "../../../../shared/model/types";
+import { changeFormError } from "../../../../shared/lib/helpers/ChangeFormError";
 
 export const AdminMessageChange: FC = () => {
 
@@ -15,6 +17,9 @@ export const AdminMessageChange: FC = () => {
         type: -1
     })
 
+    const [formError, setFormError] = useState<IFormError<IAdminMessageData>[]>([])
+    const setErrorFieldDelete = changeFormError(formError, setFormError)
+
     return (
         <section className={classes.container}>
             <section>
@@ -23,32 +28,41 @@ export const AdminMessageChange: FC = () => {
                     adminMessage={adminMessages}
                     setAdminMessage={setAdminMessage}
                     type="scenarios" 
+                    error={formError.find(error => error.field === 'scenario_id')?.text}
+                    setError={setErrorFieldDelete('scenario_id')}
                 />            
             </section>
-            
-             <section>
+            <section>
                 <section className={classes.title}>Порядковый номер шага</section>
                 <StepNumber 
                     adminMessages={adminMessages}
                     setAdminMessage={setAdminMessage}
+                    error={formError.find(error => error.field === 'step_order')?.text}
+                    setError={setErrorFieldDelete('step_order')}
                 />     
             </section>
-
             <section>
                 <section className={classes.title}>Тип сообщения (доктору/админу)</section>
                 <Lists 
                     adminMessage={adminMessages}
                     setAdminMessage={setAdminMessage}
                     type='typeMessage' 
+                    error={formError.find(error => error.field === 'type')?.text}
+                    setError={setErrorFieldDelete('type')}
                 />            
             </section>
             <MyTextarea
                 title="Текст сообщения"
                 value={adminMessages.message}
                 setValue={(val: string) => setAdminMessage({...adminMessages, message: val})}
+                error={formError.find(error => error.field === 'type')?.text}
+                setError={setErrorFieldDelete('type')}
             />
-
-            <Action adminMessage={adminMessages} />
+            <Action 
+                formError={formError}
+                setFormError={setFormError}
+                adminMessage={adminMessages} 
+            />
         </section>
     )
 }

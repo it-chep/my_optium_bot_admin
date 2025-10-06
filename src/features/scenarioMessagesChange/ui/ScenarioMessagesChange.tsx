@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classes from './scenarioMessagesChange.module.scss'
 import { useAppSelector } from "../../../app/store/store";
 import { scenarioService, useScenarioStepDataActions } from "../../../entities/scenario";
@@ -22,7 +22,20 @@ export const ScenarioMessagesChange: FC = () => {
     const {setGlobalMessage} = useGlobalMessageActions()
     const router = useNavigate()
 
+    const [error, setError] = useState<string>('')
+
+    const check = () => {
+        if(scenarioStepData.text === ''){
+            setError('Обязательное поле')
+            return false
+        }
+        return true
+    }
+
     const setData = async () => {
+        if(!check()){
+            return
+        }
         try{
             setIsLoading(true)
             await scenarioService.updateStep(scenarioStepData.id, scenarioStepData.text)
@@ -55,9 +68,18 @@ export const ScenarioMessagesChange: FC = () => {
                 title="Текст сообщения"
                 value={scenarioStepData.text}
                 setValue={setText}
+                error={error}
+                setError={setError}
             />
-            <section onClick={setData} className={classes.button}>
-                <MyButton>Обновить</MyButton>
+            <section 
+                onClick={setData} 
+                className={classes.button}
+            >
+                <MyButton
+                    error={error.length > 0 ? "Заполните обязательные поля" : ''}    
+                >
+                    Обновить
+                </MyButton>
             </section>
         </section>
     )

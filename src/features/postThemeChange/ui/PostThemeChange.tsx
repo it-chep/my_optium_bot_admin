@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { MyInput } from "../../../shared/ui/input";
 import { MyButton } from "../../../shared/ui/button";
 import classes from './postThemeChange.module.scss'
@@ -28,7 +28,20 @@ export const PostThemeChange: FC<IProps> = ({isCreate}) => {
     const {post} = useAppSelector(s => s.postReducer)
     const {setName, setIsRequired} = usePostActions()
 
+    const [error, setError] = useState<string>('')
+
+    const check = () => {
+        if(post.name === ''){
+            setError('Обязательное поле')
+            return false
+        }
+        return true
+    }
+
     const onSend = async () => {
+        if(!check()){
+            return
+        }
         try{
             setIsLoading(true)
             if(isCreate){
@@ -60,6 +73,8 @@ export const PostThemeChange: FC<IProps> = ({isCreate}) => {
                 title="Название темы"
                 value={post.name}
                 setValue={setName}
+                error={error}
+                setError={setError}
             />
             <section className={classes.required}>
                 <section className={classes.subtitle}>Обязательная тема</section>
@@ -69,7 +84,10 @@ export const PostThemeChange: FC<IProps> = ({isCreate}) => {
                 />
             </section>
             <section className={classes.button}>
-                <MyButton onClick={onSend}>
+                <MyButton 
+                    onClick={onSend}
+                    error={error.length > 0 ? "Заполните обязательные поля" : ''}    
+                >
                     {isCreate ? 'Создать' : 'Обновить'}
                 </MyButton>
             </section>   

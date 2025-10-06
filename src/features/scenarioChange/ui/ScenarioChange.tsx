@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classes from './scenarioChange.module.scss'
 import { useAppSelector } from "../../../app/store/store";
 import { scenarioService, useScenarioActions } from "../../../entities/scenario";
@@ -22,7 +22,20 @@ export const ScenarioChange: FC = () => {
     const {setIsAuth} = useMyActions()
     const router = useNavigate()
 
+    const [error, setError] = useState<string>('')
+
+    const check = () => {
+        if(scenario.name === ''){
+            setError('Обязательное поле')
+            return false
+        }
+        return true
+    }
+
     const setData = async () => {
+        if(!check()){
+            return
+        }
         try{
             setIsLoading(true)
             await scenarioService.update(scenario.id, scenario.delay)
@@ -55,9 +68,15 @@ export const ScenarioChange: FC = () => {
                 title="Текущая периодичность (1 second, 1 minute, 1 hour и тд)"
                 value={scenario.delay}
                 setValue={setDelay}
+                error={error}
+                setError={setError}
             />
             <section onClick={setData} className={classes.button}>
-                <MyButton>Обновить</MyButton>
+                <MyButton
+                    error={error.length > 0 ? "Заполните обязательные поля" : ''}    
+                >
+                    Обновить
+                </MyButton>
             </section>
         </section>
     )

@@ -1,22 +1,21 @@
 import { FC, useEffect, useState } from "react";
 import classes from './lists.module.scss'
-import { DropDownList } from "../../../../shared/ui/dropDown";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useAppSelector } from "../../../../app/store/store";
-import { newslettersService, useNewsletterActions } from "../../../../entities/newsletters";
-import arrow from '../../../../shared/lib/assets/arrowDown.png'
+import { newslettersService } from "../../../../entities/newsletters";
 import { IItem } from "../../../../shared/model/types";
 import { useInformationPostActions } from "../../../../entities/informationPost";
 import { postService } from "../../../../entities/post";
 import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 
 interface IProps {
-    type: 'posts' | 'fileType'
+    type: 'posts' | 'fileType';
+    error?: string;
+    setError?: (err: string) => void; 
 }
 
-
-export const Lists: FC<IProps> = ({type}) => {
+export const Lists: FC<IProps> = ({type, error, setError}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     
@@ -60,17 +59,9 @@ export const Lists: FC<IProps> = ({type}) => {
     
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
-            try{
-                setGlobalIsLoading(true)
-                setItem(item, selected)
-            }
-            catch(e){
-                console.log(e)
-                setGlobalMessage({message: 'Ошбика при добавлении данных', type: 'error'})
-            }
-            finally{
-                setGlobalIsLoading(false)
-            }
+            setGlobalIsLoading(true)
+            setItem(item, selected)
+            setError && setError('')
         }
     }
 
@@ -86,6 +77,9 @@ export const Lists: FC<IProps> = ({type}) => {
                 items={items}
                 selectedIdItems={type === "posts" ? [informationPost.theme_id] : [informationPost.content_type_id]}
             />
+            <section className={classes.errorText}>
+                {error}
+            </section>
         </section>
     )
 }
