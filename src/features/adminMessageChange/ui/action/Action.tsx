@@ -9,19 +9,38 @@ import { IAdminMessageData } from "../../../../entities/adminMessage/model/types
 import { adminMessageService } from "../../../../entities/adminMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
+import { IFormError } from "../../../../shared/model/types";
 
 interface IProps{
     adminMessage: IAdminMessageData;
+    formError: IFormError<IAdminMessageData>[];
+    setFormError: (formError: IFormError<IAdminMessageData>[]) => void;
 }
 
-export const Action: FC<IProps> = ({adminMessage}) => {
+export const Action: FC<IProps> = ({adminMessage, formError, setFormError}) => {
 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const router = useNavigate()
     const {setIsAuth} = useMyActions()
 
+    const checkData = (): boolean => {
+        const error: IFormError<IAdminMessageData>[] = [];
+        let isOk = true;
+        for(let key in adminMessage){
+            if(adminMessage[key as keyof IAdminMessageData] === '' || adminMessage[key as keyof IAdminMessageData] === -1){
+                error.push({field: key as keyof IAdminMessageData, text: 'Обязательное поле'})
+                isOk = false;
+            }
+        }
+        setFormError(error)
+        return isOk
+    }
+
     const setData = async () => {
+        if(!checkData()){
+            return
+        }
         try{
             setIsLoading(true)
             await adminMessageService.create(adminMessage)
@@ -46,7 +65,11 @@ export const Action: FC<IProps> = ({adminMessage}) => {
     return (
         <section className={classes.container} onClick={setData}>
             <section className={classes.button}>
-                <MyButton>Создать</MyButton>
+                <MyButton 
+                    error={formError.length > 0 ? "Заполните обязательные поля" : ""}
+                >
+                    Создать
+                </MyButton>
             </section>
         </section>
     )

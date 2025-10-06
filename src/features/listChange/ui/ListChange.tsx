@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { MyInput } from "../../../shared/ui/input";
-import { listService, useListActions } from "../../../entities/list";
+import { IList, listService, useListActions } from "../../../entities/list";
 import { MyButton } from "../../../shared/ui/button";
 import classes from './listChange.module.scss'
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { LISTS_ROUTE } from "../../../app/router/routes";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
+import { changeFormError } from "../../../shared/lib/helpers/ChangeFormError";
+import { IFormError } from "../../../shared/model/types";
 
 interface IProps {
     isCreate: boolean;
@@ -26,7 +28,26 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
     const {list} = useAppSelector(s => s.listReducer)
     const {setName} = useListActions()
 
+    const [formError, setFormError] = useState<IFormError<IList>[]>([])
+    const setErrorFieldDelete = changeFormError(formError, setFormError)
+
+    const checkData = (): boolean => {
+        const error: IFormError<IList>[] = [];
+        let isOk = true;
+        for(let key in list){
+            if(list[key as keyof IList] === '' || list[key as keyof IList] === -1){
+                error.push({field: key as keyof IList, text: 'Обязательное поле'})
+                isOk = false;
+            }
+        }
+        setFormError(error)
+        return isOk
+    }
+
     const onSend = async () => {
+        if(!checkData()){
+            return
+        }
         try{
             setIsLoading(true)
             if(isCreate){
@@ -58,9 +79,14 @@ export const ListChange: FC<IProps> = ({isCreate}) => {
                 title="Название списка"
                 value={list.name}
                 setValue={setName}
+                error={formError.find(error => error.field === "name")?.text}
+                setError={setErrorFieldDelete('name')}
             />
             <section className={classes.button}>
-                <MyButton onClick={onSend}>
+                <MyButton 
+                    error={formError.length > 0 ? "Заполните обязательные поля" : ""}        
+                    onClick={onSend}
+                >
                     {isCreate ? 'Создать' : 'Обновить'}
                 </MyButton>
             </section>   

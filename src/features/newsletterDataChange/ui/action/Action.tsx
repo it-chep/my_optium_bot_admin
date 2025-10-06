@@ -7,10 +7,15 @@ import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { newslettersService } from "../../../../entities/newsletters";
 import classes from './action.module.scss'
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
+import { IFormError } from "../../../../shared/model/types";
+import { INewsletterData } from "../../../../entities/newsletters/model/types";
 
+interface IProps{
+    formError: IFormError<INewsletterData>[];
+    setFormError: (formError: IFormError<INewsletterData>[]) => void;
+}
 
-
-export const Action: FC = () => {
+export const Action: FC<IProps> = ({formError, setFormError}) => {
 
     const {newsletterData} = useAppSelector(s => s.newsletterReducer)    
 
@@ -22,7 +27,26 @@ export const Action: FC = () => {
     const isCreate = pathname === NEWSLETTER_CREATE_ROUTE.path;
     const router = useNavigate()
 
+    const checkData = (): boolean => {
+        const error: IFormError<INewsletterData>[] = [];
+        let isOk = true;
+        for(let key in newsletterData){
+            if(newsletterData[key as keyof INewsletterData] === '' || 
+                newsletterData[key as keyof INewsletterData] === -1 || 
+                ((key as keyof INewsletterData === 'users_lists') && newsletterData['users_lists'].length === 0) 
+            ){
+                error.push({field: key as keyof INewsletterData, text: 'Обязательное поле'})
+                isOk = false;
+            }
+        }
+        setFormError(error)
+        return isOk
+    }
+
     const setData = async () => {
+        if(!checkData()){
+            return
+        }
         try{
             setIsLoading(true)
             if(isCreate){
@@ -46,7 +70,11 @@ export const Action: FC = () => {
     return (
         <section className={classes.container} onClick={setData}>
             <section className={classes.button}>
-                <MyButton>{isCreate ? 'Создать' : 'Обновить'}</MyButton>
+                <MyButton 
+                    error={formError.length > 0 ? "Заполните обязательные поля" : ""}    
+                >
+                    {isCreate ? 'Создать' : 'Обновить'}
+                </MyButton>
             </section>
         </section>
     )

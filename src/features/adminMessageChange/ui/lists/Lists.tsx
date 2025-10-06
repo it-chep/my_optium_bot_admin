@@ -1,9 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import classes from './lists.module.scss'
-import { DropDownList } from "../../../../shared/ui/dropDown";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import arrow from '../../../../shared/lib/assets/arrowDown.png'
 import { IItem } from "../../../../shared/model/types";
 import { IAdminMessageData } from "../../../../entities/adminMessage/model/types";
 import { scenarioService } from "../../../../entities/scenario";
@@ -15,10 +13,12 @@ interface IProps {
     type: 'scenarios' | 'typeMessage';
     adminMessage: IAdminMessageData;
     setAdminMessage: (adminMessage: IAdminMessageData) => void;
+    error?: string;
+    setError?: (err: string) => void; 
 }
 
 
-export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
+export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage, error, setError}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(type === 'scenarios')
     
@@ -74,6 +74,7 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
             setItem(item, selected)
+            setError && setError('')
         }
     }
 
@@ -89,6 +90,9 @@ export const Lists: FC<IProps> = ({type, adminMessage, setAdminMessage}) => {
                 items={items}
                 selectedIdItems={type === "scenarios" ? [adminMessage.scenario_id] : [adminMessage.type]}
             />
+            <section className={classes.errorText}>
+                {error}
+            </section>
         </section>
     )
 }

@@ -9,9 +9,11 @@ import { IAdminMessageData } from "../../../../entities/adminMessage";
 interface IProps {
     adminMessages: IAdminMessageData;
     setAdminMessage: (adminMessages: IAdminMessageData) => void;
+    error?: string;
+    setError?: (err: string) => void; 
 }
 
-export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
+export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage, error, setError}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [selectedId, setSelectedId] = useState<number | null>(null)
@@ -47,7 +49,10 @@ export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
     }
     
     const onSelected = (item: IItem) => {
-        return (selected: boolean) => setItem(item, selected)
+        return (selected: boolean) => {
+            setItem(item, selected)
+            setError && setError('')
+        }
     }
 
     useEffect(() => {
@@ -70,6 +75,9 @@ export const StepNumber: FC<IProps> = ({adminMessages, setAdminMessage}) => {
                     selectedIdItems={selectedId ? [selectedId] : []}
                 />
             }
+            <section className={classes.errorText}>
+                {error}
+            </section>
         </section>
     )
 }
