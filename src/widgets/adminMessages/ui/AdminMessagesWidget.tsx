@@ -70,7 +70,7 @@ export const AdminMessagesWidget: FC = () => {
                         </section>
                     </li>
                     {messages.map(message => 
-                        <AdminMessageItem key={message.id} adminMessage={message}>
+                        <AdminMessageItem key={message.id + message.type_name} adminMessage={message}>
                             <DeleteAction
                                 questionText="Точно хотите удалить сообщение ?"
                                 errorText="Ошибка при удалении сообщения"
