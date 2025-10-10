@@ -21,12 +21,6 @@ export const InformationPostChange: FC<IProps> = ({isCreate, error, setError}) =
     const {informationPost} = useAppSelector(s => s.informationPostReducer)
     const {setName, setMediaId, setOrder, setMessage} = useInformationPostActions()
 
-    const checkOrder = (val: string) => {
-        if(+val >= 1){
-            setOrder(+val)
-        }
-    }
-
     const [formError, setFormError] = useState<IFormError<IInformationPostData>[]>([])
     const setErrorFieldDelete = changeFormError(formError, setFormError)
 
@@ -66,8 +60,6 @@ export const InformationPostChange: FC<IProps> = ({isCreate, error, setError}) =
                 <section className={classes.title}>Тип медиа файла</section>
                 <Lists 
                     type="fileType" 
-                    error={formError.find(error => error.field === 'content_type_id')?.text}
-                    setError={setErrorFieldDelete('content_type_id')}
                 />            
             </section>
             <MyTextarea
