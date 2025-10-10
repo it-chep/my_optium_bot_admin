@@ -59,7 +59,6 @@ export const Lists: FC<IProps> = ({type, error, setError}) => {
     
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
-            setGlobalIsLoading(true)
             setItem(item, selected)
             setError && setError('')
         }
