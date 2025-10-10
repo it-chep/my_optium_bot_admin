@@ -23,7 +23,6 @@ export const Lists: FC<IProps> = ({type, error, setError}) => {
     const {newsletterData} = useAppSelector(s => s.newsletterReducer)
     const {setUsersLists, setСontentTypeId} = useNewsletterActions()
 
-    const {setIsLoading: setGlobalIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     
     const [items, setItems] = useState<IItem[]>([])
@@ -77,6 +76,7 @@ export const Lists: FC<IProps> = ({type, error, setError}) => {
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
             setItem(item, selected)
+            setError && setError('')
         }
     }
 
