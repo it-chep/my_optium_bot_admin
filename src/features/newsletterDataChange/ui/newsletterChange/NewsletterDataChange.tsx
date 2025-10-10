@@ -48,13 +48,13 @@ export const NewsletterDataChange: FC = () => {
                 title="Файл"
                 value={newsletterData.media_id}
                 setValue={setMediaId}
+                error={formError.find(error => error.field === "media_id")?.text}
+                setError={setErrorFieldDelete('media_id')}
             />
             <section>
                 <section className={classes.title}>Тип файла</section>
                 <Lists 
                     type="fileType" 
-                    error={formError.find(error => error.field === "content_type_id")?.text}
-                    setError={setErrorFieldDelete('content_type_id')}
                 />            
             </section>
             <UserCount />

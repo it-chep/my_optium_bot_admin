@@ -32,8 +32,8 @@ export const Action: FC<IProps> = ({isCreate, formError, setFormError}) => {
         const error: IFormError<IInformationPostData>[] = [];
         let isOk = true;
         for(let key in informationPost){
-            if(informationPost[key as keyof IInformationPostData] === '' || 
-                (informationPost[key as keyof IInformationPostData] === -1 && !(key as keyof IInformationPostData === 'media_id'))){
+            if(key as keyof IInformationPostData === 'content_type_id') continue
+            if(informationPost[key as keyof IInformationPostData] === '' || (informationPost[key as keyof IInformationPostData] === -1)){
                 error.push({field: key as keyof IInformationPostData, text: 'Обязательное поле'})
                 isOk = false;
             }
