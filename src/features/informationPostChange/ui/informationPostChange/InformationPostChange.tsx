@@ -53,8 +53,6 @@ export const InformationPostChange: FC<IProps> = ({isCreate, error, setError}) =
                 title="ID файла из телеграм"
                 value={informationPost.media_id}
                 setValue={setMediaId}
-                error={formError.find(error => error.field === 'media_id')?.text}
-                setError={setErrorFieldDelete('media_id')}
             />
             <section>
                 <section className={classes.title}>Тип медиа файла</section>
