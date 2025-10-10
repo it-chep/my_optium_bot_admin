@@ -48,8 +48,6 @@ export const NewsletterDataChange: FC = () => {
                 title="Файл"
                 value={newsletterData.media_id}
                 setValue={setMediaId}
-                error={formError.find(error => error.field === "media_id")?.text}
-                setError={setErrorFieldDelete('media_id')}
             />
             <section>
                 <section className={classes.title}>Тип файла</section>
