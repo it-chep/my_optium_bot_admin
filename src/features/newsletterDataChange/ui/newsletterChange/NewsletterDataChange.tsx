@@ -11,10 +11,9 @@ import { INewsletterData } from "../../../../entities/newsletters/model/types";
 import { changeFormError } from "../../../../shared/lib/helpers/ChangeFormError";
 import { IFormError } from "../../../../shared/model/types";
 
-
 export const NewsletterDataChange: FC = () => {
 
-    const {setName, setText, setСontentTypeId, setMediaId} = useNewsletterActions()
+    const {setName, setText, setMediaId} = useNewsletterActions()
     const {newsletterData} = useAppSelector(s => s.newsletterReducer)
 
     const [formError, setFormError] = useState<IFormError<INewsletterData>[]>([])
@@ -48,8 +47,6 @@ export const NewsletterDataChange: FC = () => {
                 title="Файл"
                 value={newsletterData.media_id}
                 setValue={setMediaId}
-                error={formError.find(error => error.field === "media_id")?.text}
-                setError={setErrorFieldDelete('media_id')}
             />
             <section>
                 <section className={classes.title}>Тип файла</section>
