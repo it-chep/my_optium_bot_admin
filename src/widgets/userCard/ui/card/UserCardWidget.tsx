@@ -138,7 +138,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
                     <section className={classes.dataWrap}>
                         <h3>Следующий запуск сценария</h3>
                         <section className={classes.dataContainer}>
-                                <Scenarios user={user} setUser={setUser} />
+                            <Scenarios user={user} setUser={setUser} />
                         </section>
                     </section>
                 </>

@@ -41,6 +41,7 @@ export const Scenarios: FC<IProps> = ({user, setUser}) => {
                 setOpen={setOpen}
             >   
                 <UpdateUserScenarioDatetime 
+                    currentScenarioId={currentScenarioId}
                     user={user}
                     setOpen={setOpen}
                     setDatetime={setDatetime}

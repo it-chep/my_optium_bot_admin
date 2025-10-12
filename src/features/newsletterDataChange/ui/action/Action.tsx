@@ -31,6 +31,7 @@ export const Action: FC<IProps> = ({formError, setFormError}) => {
         const error: IFormError<INewsletterData>[] = [];
         let isOk = true;
         for(let key in newsletterData){
+            if(key as keyof INewsletterData === 'content_type_id' || key as keyof INewsletterData === 'media_id') continue
             if(newsletterData[key as keyof INewsletterData] === '' || 
                 ((key as keyof INewsletterData === 'users_lists') && newsletterData['users_lists'].length === 0) 
             ){

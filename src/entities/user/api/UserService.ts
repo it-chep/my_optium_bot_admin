@@ -40,10 +40,10 @@ class UserService{
         })
     }
 
-    async setScenarioDatetime(userId: number, scheduled_time: string) {
+    async setScenarioDatetime(userId: number, scenario_id: number, scheduled_time: string) {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/scheduled_time', {
             method: "POST",
-            body: JSON.stringify({scheduled_time})
+            body: JSON.stringify({scheduled_time, scenario_id})
         })
     }
 }
