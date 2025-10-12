@@ -8,11 +8,12 @@ import { IUserData, userService } from "../../../entities/user";
 
 interface IProps {
     user: IUserData;
+    currentScenarioId: number;
     setDatetime: (val: string) => void;
     setOpen: (open: boolean) => void;
 }
 
-export const UpdateUserScenarioDatetime: FC<IProps> = ({user, setDatetime, setOpen}) => {
+export const UpdateUserScenarioDatetime: FC<IProps> = ({user, setDatetime, currentScenarioId, setOpen}) => {
 
     const [value, setValue] = useState<string>('')
 
@@ -35,7 +36,7 @@ export const UpdateUserScenarioDatetime: FC<IProps> = ({user, setDatetime, setOp
         }
         try{
             setIsLoading(true)
-            await userService.setScenarioDatetime(user.user.id, value)
+            await userService.setScenarioDatetime(user.user.id, currentScenarioId, value)
             setDatetime(value)
             setGlobalMessage({message: 'Следующий запуск сценария сохранен', type: 'ok'})
 
