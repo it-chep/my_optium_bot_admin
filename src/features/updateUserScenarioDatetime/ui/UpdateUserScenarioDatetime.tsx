@@ -65,7 +65,7 @@ export const UpdateUserScenarioDatetime: FC<IProps> = ({user, setDatetime, curre
                     onClick={onSend}
                     error={error.length > 0 ? "Заполните обязательные поля" : ''}    
                 >
-                    Сохрнаить
+                    Сохранить
                 </MyButton>
             </section>
         </section>
