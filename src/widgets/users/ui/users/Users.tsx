@@ -9,12 +9,13 @@ import { useMyActions } from "../../../../entities/my";
 
 interface IProps {
     setCurrentUser: (currentUser: number) => void
+    users: IUser[];
+    setUsers: (users: IUser[]) => void;
 }
 
-export const UsersWidget: FC<IProps & PropsWithChildren> = ({setCurrentUser, children}) => {
+export const UsersWidget: FC<IProps & PropsWithChildren> = ({setCurrentUser, users, setUsers, children}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [users, setUsers] = useState<IUser[]>([])
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
 
@@ -65,7 +66,10 @@ export const UsersWidget: FC<IProps & PropsWithChildren> = ({setCurrentUser, chi
                     {
                         children
                             ||
-                        <UserList users={users} setCurrentUser={setCurrentUser} />
+                        <UserList 
+                            users={users} 
+                            setCurrentUser={setCurrentUser} 
+                        />
                     }
                 </section>
             }

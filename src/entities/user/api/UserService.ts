@@ -23,6 +23,12 @@ class UserService{
         })
     }
 
+    async deleteUser(userId: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user/' + userId + '/delete', {
+            method: "POST"
+        })
+    }
+
     async deleteUserPost(userId: number, postId: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/post/' + postId, {
             method: "DELETE"

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import classes from './userCardWidget.module.scss'
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
-import { IUserData, UserCard, userService } from "../../../../entities/user";
+import { IUser, IUserData, UserCard, userService } from "../../../../entities/user";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { Lists } from "../lists/Lists";
 import { Posts } from "../posts/Posts";
@@ -12,13 +12,16 @@ import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { IItem } from "../../../../shared/model/types";
 import { IInformationPost } from "../../../../entities/informationPost";
+import { DeleteAction } from "../../../../features/deleteAction";
 
 interface IProps{
     currentUser: number;
     setCurrentUser: (currentUser: number | null) => void;
+    users: IUser[];
+    setUsers: (users: IUser[]) => void;
 }
 
-export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
+export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser, users, setUsers}) => {
 
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -85,10 +88,23 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
         }
     }
 
+    const onDelete = async () => {
+        if(user){
+            await userService.deleteUser(user.user.id)
+            const usersCopy: IUser[] = JSON.parse(JSON.stringify(users))
+            const targetInd = usersCopy.findIndex(u => u.id === user.user.id)
+            if(targetInd >= 0){
+                usersCopy.splice(targetInd, 1)
+                setUsers(usersCopy)
+                setCurrentUser(null)
+            }
+        }
+    }
+
     useEffect(() => {
         getData()
     }, [])
-
+    
     return (
         <section className={classes.container}>   
             {
@@ -105,7 +121,14 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser}) => {
                             <MyButton onClick={() => setCurrentUser(null)}>Закрыть</MyButton>
                         </section>
                     </section>
-                    <UserCard user={user} />
+                    <UserCard user={user}>
+                        <DeleteAction 
+                            onDelete={onDelete}
+                            questionText="Точно хотите удалить пользователя ?"
+                            successText="Пользователь успешно удален"
+                            errorText="Ошибка при удалении пользователя"
+                        />
+                    </UserCard>
                     <section className={classes.dataWrap}>
                         <h3>Состоит в списках</h3>
                         <section className={classes.dataContainer}>
