@@ -13,6 +13,7 @@ import { useMyActions } from "../../../../entities/my";
 import { IItem } from "../../../../shared/model/types";
 import { IInformationPost } from "../../../../entities/informationPost";
 import { DeleteAction } from "../../../../features/deleteAction";
+import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 
 interface IProps{
     currentUser: number;
@@ -28,6 +29,7 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser, users, 
     const {setIsAuth} = useMyActions()
     const [user, setUser] = useState<IUserData>()
     const [postInfs, setPostInfs] = useState<IInformationPost[]>([])
+    const {setIsLoading: setIsLoadingGlobal} = useGlobalLoadingActions()
 
     const setList = (item: IUserData['lists'][0], selected: boolean) => {
         if(user){
@@ -88,6 +90,29 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser, users, 
         }
     }
 
+    const move_2 = async () => {
+        try{
+            if(user){
+                setIsLoadingGlobal(true)
+                await userService.move_2_step(user.user.id)
+                setGlobalMessage({message: 'Успешный переход ко 2 этапу', type: 'ok'})
+            }
+        }
+        catch(e){
+            console.log(e)
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при переходе ко 2 этапу', type: 'error'})
+            }
+        }
+        finally{
+            setIsLoadingGlobal(false)
+        }
+    }
+
     const onDelete = async () => {
         if(user){
             await userService.deleteUser(user.user.id)
@@ -115,9 +140,12 @@ export const UserCardWidget: FC<IProps> = ({currentUser, setCurrentUser, users, 
                 user
                     &&
                 <>
-                    <section className={classes.name}>
+                    <section className={classes.header}>
                         {user.user.name}
-                        <section className={classes.button}>
+                        <section>
+                            <MyButton onClick={move_2}>Переход ко 2 этапу </MyButton>
+                        </section>
+                        <section>
                             <MyButton onClick={() => setCurrentUser(null)}>Закрыть</MyButton>
                         </section>
                     </section>

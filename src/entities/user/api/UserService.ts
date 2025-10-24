@@ -52,6 +52,12 @@ class UserService{
             body: JSON.stringify({scheduled_time, scenario_id})
         })
     }
+
+    async move_2_step(userId: number) {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/users/' + userId + '/move_2_step', {
+            method: "POST",
+        })
+    }
 }
 
 
